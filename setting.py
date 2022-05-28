@@ -78,7 +78,7 @@ class Settinger(QWidget,Ui_setting):
             self.toolButton.setDisabled(True)
             self.setting["sidebar"]["type"]="clock"
     def about(self):
-        QMessageBox.about(self,"关于uClock","UCLOCK By LYX\nv0.3\n基于Python3.8与PyQt5构建")
+        QMessageBox.about(self,"关于uClock","UCLOCK By LYX\nv1.0\n基于Python3.8与PyQt5构建")
     def setPic(self):
         self.setting["appearance"]["pic"]=self.lineEdit_3.text()
     def getPic(self):
