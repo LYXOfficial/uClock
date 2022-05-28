@@ -17,7 +17,7 @@ class Settinger(QWidget,Ui_setting):
         self.setup()
     def closeEvent(self,event):
         with open("settings.json","w+",encoding="utf-8") as f:
-            json.dump(self.setting,f)
+            json.dump(self.setting,f,sort_keys=True, indent=4, separators=(',', ':'))
         self.hide()
     def setup(self):
         with open("settings.json","r",encoding="utf-8") as f:
@@ -31,21 +31,27 @@ class Settinger(QWidget,Ui_setting):
         self.toolButton_2.clicked.connect(self.getPic)
         self.lineEdit_3.textChanged.connect(self.setPic)
         self.pushButton_2.clicked.connect(self.about)
+        self.comboBox.currentIndexChanged[str].connect(self.onCom)
+        self.toolButton.clicked.connect(self.getHtml)
+        self.doubleSpinBox.valueChanged.connect(self.setZoomFactor)
         self.dateEdit.setDate(datetime.datetime.strptime(self.setting["countdown"]["countdownDay"], '%Y-%m-%d'))
         self.checkBox.setChecked(self.setting["countdown"]["isCountdown"])
         self.lineEdit_2.setText(self.setting["countdown"]["countdownThing"])
         self.lineEdit_3.setText(self.setting["appearance"]["pic"])
+        self.lineEdit.setText(self.setting["sidebar"]["html"])
+        self.doubleSpinBox.setValue(self.setting["sidebar"]["zoom"])
+        if self.setting["sidebar"]["type"]=="clock":
+            self.comboBox.setCurrentIndex(0)
+        elif self.setting["sidebar"]["type"]=="calendar":
+            self.comboBox.setCurrentIndex(1)
+        elif self.setting["sidebar"]["type"]=="self":
+            self.comboBox.setCurrentIndex(2)
         if self.setting["appearance"]["mode"]=="effect":
             self.radioButton.setChecked(True)
         elif self.setting["appearance"]["mode"]=="pic":
             self.radioButton_2.setChecked(True)
         self.windowEffect = WindowEffect()
-        if self.setting["appearance"]["mode"]=="effect":
-            if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.15063-SP0"):
-                self.setAttribute(Qt.WA_TranslucentBackground)
-                self.windowEffect.setAcrylicEffect(int(self.winId()))  
-                self.menu.setFrameShape(QListWidget.NoFrame)
-                self.menu.setStyleSheet("""
+        self.menu.setStyleSheet("""
 QListView {
     outline: none;
 }
@@ -63,10 +69,30 @@ QListView {
 }
 
 #menu::item:selected {
-    border-left: 5px solid #777777;
+    border-left: 5px solid #66ccff;
 }
 }""")
-                self.windowEffect.setAcrylicEffect(int(self.menu.winId()))
+    def setZoomFactor(self):
+        self.setting["sidebar"]["zoom"]=self.doubleSpinBox.value()
+    def onCom(self,text):
+        if text=="其它":
+            self.label_2.setEnabled(True)
+            self.lineEdit.setEnabled(True)
+            self.doubleSpinBox.setEnabled(True)
+            self.toolButton.setEnabled(True)
+            self.setting["sidebar"]["type"]="self"
+        elif text=="日历":
+            self.label_2.setDisabled(True)
+            self.lineEdit.setDisabled(True)
+            self.doubleSpinBox.setDisabled(True)
+            self.toolButton.setDisabled(True)
+            self.setting["sidebar"]["type"]="calendar"
+        elif text=="时钟":
+            self.label_2.setDisabled(True)
+            self.lineEdit.setDisabled(True)
+            self.doubleSpinBox.setDisabled(True)
+            self.toolButton.setDisabled(True)
+            self.setting["sidebar"]["type"]="clock"
     def about(self):
         QMessageBox.about(self,"关于uClock","UCLOCK By LYX\nv0.3\n基于Python3.8与PyQt5构建")
     def setPic(self):
@@ -74,6 +100,11 @@ QListView {
     def getPic(self):
         a,_=QFileDialog.getOpenFileName(self,"选择背景图片","%userprofile%","图片文件(*.png *.jpg *.jpeg)")
         self.lineEdit_3.setText(a)
+    def getHtml(self):
+        a,_=QFileDialog.getOpenFileName(self,"选择Html","%userprofile%","网页(*.html *.htm)")
+        self.lineEdit.setText(a)
+        self.setting["sidebar"]["html"]=a
+
     def setEffect(self):
         if self.radioButton.isChecked():
             self.setting["appearance"]["mode"]="effect"

@@ -1,1 +1,19 @@
-{"countdown": {"isCountdown": true, "countdownDay": "2022-06-27", "countdownThing": "\u5c0f\u8003"}, "appearance": {"mode": "effect", "pic": "F:/v2-38ba4d308de729f62a2c334ce874be83_r.jpg"}, "network": {"doNotTraceback": false}, "sidebar": {"type": "calendar", "html": "./"}}
+{
+    "appearance":{
+        "mode":"effect",
+        "pic":"F:/v2-38ba4d308de729f62a2c334ce874be83_r.jpg"
+    },
+    "countdown":{
+        "countdownDay":"2022-06-17",
+        "countdownThing":"\u5c0f\u8003",
+        "isCountdown":true
+    },
+    "network":{
+        "doNotTraceback":false
+    },
+    "sidebar":{
+        "html":"E:/python/\u7cbe\u7075\u80fd\u529b.html",
+        "type":"self",
+        "zoom":0.47
+    }
+}

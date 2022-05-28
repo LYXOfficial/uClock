@@ -63,12 +63,17 @@ class clockWindow(QSplashScreen,Ui_Form):
         # self.view=QWebEngineView()
         self.view.page().setBackgroundColor(Qt.transparent)
         self.view.setAttribute(Qt.WA_TranslucentBackground)
-        #时钟
-        # self.view.setHtml(open("clock.html",encoding="utf-8").read())
-        # self.view.setZoomFactor(0.9)
-        #日历
-        self.view.setHtml(open("date.html",encoding="utf-8").read())
-        self.view.setZoomFactor(0.47)
+        if self.settings["sidebar"]["type"]=="clock":
+            #时钟
+            self.view.setHtml(open("clock.html",encoding="utf-8").read())
+            self.view.setZoomFactor(0.9)
+        elif self.settings["sidebar"]["type"]=="calendar":
+            #日历
+            self.view.setHtml(open("date.html",encoding="utf-8").read())
+            self.view.setZoomFactor(0.47)
+        else:
+            self.view.setHtml(open(self.settings["sidebar"]["html"],encoding="utf-8").read())
+            self.view.setZoomFactor(self.settings["sidebar"]["zoom"])
         self.view.settings().setAttribute(QWebEngineSettings.WebAttribute.ShowScrollBars,False)
         self.view.setContextMenuPolicy(Qt.NoContextMenu)
         #win11/7圆角
@@ -107,12 +112,6 @@ class clockWindow(QSplashScreen,Ui_Form):
         self.timer=timeReloadThread()
         self.timer.start()
     def effects(self):
-        objBitmap=QBitmap(self.size())
-        painter=QPainter(objBitmap)
-        painter.fillRect(self.rect(),Qt.white)
-        painter.setBrush(QColor(0,0,0))
-        painter.drawRoundedRect(self.rect(),10,10)
-        self.setMask(objBitmap)
         self.windowEffect = WindowEffect()
         #self.setStyleSheet("background:transparent")
         # op=QGraphicsOpacityEffect()
@@ -125,8 +124,29 @@ class clockWindow(QSplashScreen,Ui_Form):
             if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.15063-SP0"):
                 self.setAttribute(Qt.WA_TranslucentBackground)
                 self.contextMenu.setAttribute(Qt.WA_TranslucentBackground)
+                self.contextMenu.setStyleSheet("""background:transparent；
+                
+QMenu {
+    border-radius: 4px;
+    background:transparent；
+}
+QMenu::item:text { 
+	color:#000000;
+    font-size:13px
+}
+QMenu::item:selected{ 
+	background-color: #e6e6e6;
+}
+QMenu::item{
+    background-color:#FFFFFF;
+    padding:6px 20px;
+    background:transparent；
+}
+ 
+
+                """)
                 self.windowEffect.setAcrylicEffect(int(self.winId()))
-                self.windowEffect.setAcrylicEffect(int(self.contextMenu.winId()))
+                self.windowEffect.setAcrylicEffect(int(self.contextMenu.winId()),gradientColor="FFFFFF99")
             elif "linux" not in platform.platform().lower() and (platform.platform()=="Windows-7" and platform.platform()<"Windows-8"):
                 self.setAttribute(Qt.WA_TranslucentBackground)
                 self.windowEffect.setAeroEffect(int(self.winId()))

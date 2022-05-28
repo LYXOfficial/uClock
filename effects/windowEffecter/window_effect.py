@@ -30,7 +30,7 @@ class WindowEffect():
         self.winCompAttrData.SizeOfData = sizeof(self.accentPolicy)
         self.winCompAttrData.Data = pointer(self.accentPolicy)
 
-    def setAcrylicEffect(self, hWnd: int, gradientColor: str = 'F2F230', isEnableShadow: bool = True, animationId: int = 0):
+    def setAcrylicEffect(self, hWnd: int, gradientColor: str = 'F2F2F230', isEnableShadow: bool = True, animationId: int = 0):
         """ 给窗口开启Win10的亚克力效果 F2F2F230
 
         Parameters
