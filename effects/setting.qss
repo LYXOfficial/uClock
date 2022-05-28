@@ -26,8 +26,8 @@ QCheckBox::indicator {
 	width: 60px; height: 30px; 
 }
 QCheckBox::indicator:unchecked{
-	background:url(:/effects/off.png)
+	background:url(:/off.png)
 }
 QCheckBox::indicator:checked{
-	background:url(:/effects/on.png)
+	background:url(:/on.png)
 }

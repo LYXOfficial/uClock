@@ -9,7 +9,7 @@
         "isCountdown":true
     },
     "network":{
-        "doNotTraceback":false
+        "doNotTraceback":true
     },
     "sidebar":{
         "html":"E:/\u9879\u76ee/uClock/date.html",
