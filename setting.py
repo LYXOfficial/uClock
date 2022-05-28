@@ -53,7 +53,7 @@ class Settinger(QWidget,Ui_setting):
         elif self.setting["appearance"]["mode"]=="pic":
             self.radioButton_2.setChecked(True)
         self.windowEffect = WindowEffect()
-        self.setStyleSheet(open("effects/setting.qss",encoding="utf-8").read() )
+        self.setStyleSheet(open("setting.qss",encoding="utf-8").read() )
     def setError(self):
         self.setting["network"]["doNotTraceback"]=self.checkBox_3.isChecked()
     def setZoomFactor(self):

@@ -17,17 +17,3 @@ QListView {
 #menu::item:selected {
     border-left: 5px solid #66ccff;
 }
-/* QCheckBox{
-	font: 16pt "方正舒体";
-	background-color: rgba(169, 226, 223, 228);
-	border-radius: 10px
-} */
-QCheckBox::indicator {
-	width: 60px; height: 30px; 
-}
-QCheckBox::indicator:unchecked{
-	background:url(:/off.png)
-}
-QCheckBox::indicator:checked{
-	background:url(:/on.png)
-}
