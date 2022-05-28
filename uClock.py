@@ -107,6 +107,12 @@ class clockWindow(QSplashScreen,Ui_Form):
         self.timer=timeReloadThread()
         self.timer.start()
     def effects(self):
+        objBitmap=QBitmap(self.size())
+        painter=QPainter(objBitmap)
+        painter.fillRect(self.rect(),Qt.white)
+        painter.setBrush(QColor(0,0,0))
+        painter.drawRoundedRect(self.rect(),10,10)
+        self.setMask(objBitmap)
         self.windowEffect = WindowEffect()
         #self.setStyleSheet("background:transparent")
         # op=QGraphicsOpacityEffect()
