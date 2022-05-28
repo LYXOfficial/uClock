@@ -49,13 +49,12 @@ class clockWindow(QSplashScreen,Ui_Form):
             except:
                 QMessageBox.warning(self,"错误","系统未联网，可能会影响功能使用")
     def uis(self):
-        self.setWindowFlags(Qt.ToolTip)
         self.setContextMenuPolicy(Qt.CustomContextMenu)  
         self.customContextMenuRequested.connect(lambda:self.contextMenu.exec_(QCursor.pos())) 
         self.contextMenu = QMenu(self)
         self.closeer = self.contextMenu.addAction('关闭')
         self.settinger = self.contextMenu.addAction('设置') 
-        self.piner = self.contextMenu.addAction('置顶')
+        self.piner = self.contextMenu.addAction('置顶(有bug）')
         self.piner.setCheckable(True)
         self.closeer.triggered.connect(self.close)
         self.settinger.triggered.connect(self.setting)
@@ -91,13 +90,11 @@ class clockWindow(QSplashScreen,Ui_Form):
     def setting(self):
         settinged.show()
     def pin(self):
-        print(self.isActiveWindow())
         if not self.isActiveWindow():
             self.activateWindow()
             self.showNormal()
         else:
             self.inactivateWindow()
-            self.showNormal()
     def inactivateWindow(self):
         self.passWindow.activateWindow()
         self.passWindow.showNormal()
