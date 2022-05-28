@@ -192,5 +192,5 @@ class Ui_setting(object):
         self.pushButton_2.setText(_translate("setting", "关于软件"))
         self.pushButton_3.setText(_translate("setting", "更新日志"))
         self.pushButton.setText(_translate("setting", "捐助作者！"))
-        self.checkBox_3.setText(_translate("setting", "忽略无网络报错"))
+        self.checkBox_3.setText(_translate("setting", "不测试网络"))
         self.checkBox_2.setText(_translate("setting", "开机自启"))

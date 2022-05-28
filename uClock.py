@@ -43,10 +43,11 @@ class clockWindow(QSplashScreen,Ui_Form):
             Days = (date1-date2).days
             self.djs.setText(f"""<html><head/><body><p>距离{self.settings["countdown"]["countdownThing"]}仅剩<span style=" color:#ff0000;">{Days}</span>天！</p></body></html>""")
     def testInternet(self):
-        try:
-            spider.test()
-        except:
-            QMessageBox.critical(self,"错误","系统未联网，可能会影响功能使用")
+        if not self.settings["network"]["doNotTraceback"]:
+            try:
+                spider.test()
+            except:
+                QMessageBox.warning(self,"错误","系统未联网，可能会影响功能使用")
     def uis(self):
         self.setWindowFlags(Qt.ToolTip)
         self.setContextMenuPolicy(Qt.CustomContextMenu)  
@@ -72,8 +73,11 @@ class clockWindow(QSplashScreen,Ui_Form):
             self.view.setHtml(open("date.html",encoding="utf-8").read())
             self.view.setZoomFactor(0.47)
         else:
-            self.view.setHtml(open(self.settings["sidebar"]["html"],encoding="utf-8").read())
-            self.view.setZoomFactor(self.settings["sidebar"]["zoom"])
+            try:
+                self.view.setHtml(open(self.settings["sidebar"]["html"],encoding="utf-8").read())
+                self.view.setZoomFactor(self.settings["sidebar"]["zoom"])
+            except:
+                pass
         self.view.settings().setAttribute(QWebEngineSettings.WebAttribute.ShowScrollBars,False)
         self.view.setContextMenuPolicy(Qt.NoContextMenu)
         #win11/7圆角

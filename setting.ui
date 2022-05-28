@@ -303,7 +303,7 @@
        <item row="1" column="0" colspan="3">
         <widget class="QCheckBox" name="checkBox_3">
          <property name="text">
-          <string>忽略无网络报错</string>
+          <string>不测试网络</string>
          </property>
         </widget>
        </item>

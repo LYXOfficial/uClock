@@ -12,8 +12,8 @@
         "doNotTraceback":false
     },
     "sidebar":{
-        "html":"E:/python/\u7cbe\u7075\u80fd\u529b.html",
-        "type":"self",
-        "zoom":0.47
+        "html":"E:/\u9879\u76ee/uClock/date.html",
+        "type":"clock",
+        "zoom":0.5
     }
 }
