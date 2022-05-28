@@ -1,6 +1,6 @@
 # coding:utf-8
 
-from ctypes import POINTER, c_bool, sizeof, windll,pointer,c_int
+from ctypes import POINTER, c_bool, sizeof, windll,pointer,c_int,cdll
 from ctypes.wintypes import DWORD, HWND, ULONG
 
 from PyQt5 import QtWidgets,QtCore
@@ -16,7 +16,7 @@ from .c_structures import (ACCENT_POLICY, ACCENT_STATE,
 
 class WindowEffect():
     """ 调用windows api实现窗口效果 """
-
+    dll = cdll.LoadLibrary('effects/windowEffect.dll')
     def __init__(self):
         # 调用api
         self.SetWindowCompositionAttribute = windll.user32.SetWindowCompositionAttribute
@@ -67,27 +67,9 @@ class WindowEffect():
         # 开启Aero
         self.SetWindowCompositionAttribute(hWnd, pointer(self.winCompAttrData))
 
-    def setShadowEffect(self, widget):
-        # 添加阴影
-
-        widget.base_widget = QtWidgets.QWidget() # 创建透明窗口
-        widget.base_widget.setStyleSheet('''QWidget{  border-radius:7px;background-color:rgb(255, 255, 255);}''')
-        widget.base_widget.setObjectName('base_widget')
-        widget.base_layout = QtWidgets.QGridLayout()
-        widget.base_widget.setLayout(widget.base_layout)
-        widget.base_widget.setAttribute(QtCore.Qt.WA_TranslucentBackground)
- 
-        widget = QtWidgets.QWidget()
-        widget.setStyleSheet('''QWidget{border-radius:7px;background-color:rgb(255,255,255);}''')
- 
-        widget.base_layout.addWidget(widget) 
- 
-        widget.setCentralWidget(widget.base_widget) # 设置窗口主部件
-        widget.effect_shadow = QtWidgets.QGraphicsDropShadowEffect(widget)
-        widget.effect_shadow.setOffset(0,0) # 偏移
-        widget.effect_shadow.setBlurRadius(20) # 阴影半径
-        widget.effect_shadow.setColor(QtCore.Qt.gray) # 阴影颜色
-        widget.setGraphicsEffect(widget.effect_shadow) # 将设置套用到widget窗口中
+    def setShadowEffect(self, hWnd):
+        """ 直接添加新阴影 """
+        self.dll.addShadowEffect(c_bool(True), hWnd)
         
     def moveWindow(self, hWnd: int):
         """ 移动窗口

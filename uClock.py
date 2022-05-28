@@ -148,13 +148,18 @@ QMenu::item{
                 """)
                 self.windowEffect.setAcrylicEffect(int(self.winId()))
                 self.windowEffect.setAcrylicEffect(int(self.contextMenu.winId()),gradientColor="FFFFFF99")
+                self.windowEffect.setShadowEffect(int(self.contextMenu.winId()))
+                self.windowEffect.setShadowEffect(int(self.winId()))
             elif "linux" not in platform.platform().lower() and (platform.platform()=="Windows-7" and platform.platform()<"Windows-8"):
                 self.setAttribute(Qt.WA_TranslucentBackground)
                 self.windowEffect.setAeroEffect(int(self.winId()))
+                self.windowEffect.setShadowEffect(int(self.winId()))
             else:
                 self.setWindowOpacity(0.8)
+                self.windowEffect.setShadowEffect(int(self.winId()))
         elif self.settings["appearance"]["mode"]=="pic":
             self.pic=True
+            self.windowEffect.setShadowEffect(int(self.winId()))
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.dragPosition = event.globalPos() - self.frameGeometry().topLeft()
