@@ -25,7 +25,7 @@ class Ui_setting(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.menu.sizePolicy().hasHeightForWidth())
         self.menu.setSizePolicy(sizePolicy)
-        self.menu.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.menu.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("萍方0")
         font.setPointSize(10)

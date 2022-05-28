@@ -39,6 +39,34 @@ class Settinger(QWidget,Ui_setting):
             self.radioButton.setChecked(True)
         elif self.setting["appearance"]["mode"]=="pic":
             self.radioButton_2.setChecked(True)
+        self.windowEffect = WindowEffect()
+        if self.setting["appearance"]["mode"]=="effect":
+            if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.15063-SP0"):
+                self.setAttribute(Qt.WA_TranslucentBackground)
+                self.windowEffect.setAcrylicEffect(int(self.winId()))  
+                self.menu.setFrameShape(QListWidget.NoFrame)
+                self.menu.setStyleSheet("""
+QListView {
+    outline: none;
+}
+
+#menu::item {
+    background-color: #ffffff;
+    color: #000000;
+    border: transparent;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 8px;
+}
+
+#menu::item:hover {
+    background-color: #f5f5f5;
+}
+
+#menu::item:selected {
+    border-left: 5px solid #777777;
+}
+}""")
+                self.windowEffect.setAcrylicEffect(int(self.menu.winId()))
     def about(self):
         QMessageBox.about(self,"关于uClock","UCLOCK By LYX\nv0.3\n基于Python3.8与PyQt5构建")
     def setPic(self):
