@@ -9,7 +9,10 @@ import spider
 import datetime
 import platform
 import json
+from ctypes.wintypes import MSG
+from win32.lib import win32con
 class Settinger(QWidget,Ui_setting):
+    BORDER_WIDTH = 5
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -19,10 +22,54 @@ class Settinger(QWidget,Ui_setting):
         with open("settings.json","w+",encoding="utf-8") as f:
             json.dump(self.setting,f,sort_keys=True, indent=4, separators=(',', ':'))
         self.hide()
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.dragPosition = event.globalPos() - self.frameGeometry().topLeft()
+            QApplication.postEvent(self, QEvent(174))
+            event.accept()
+    def mouseMoveEvent(self, event):
+        if event.buttons() == Qt.LeftButton:
+            self.move(event.globalPos() - self.dragPosition)
+            event.accept()
+    def nativeEvent(self, eventType, message):
+        """ 处理 Windows 消息 """
+        msg = MSG.from_address(message.__int__())
+        # 处理鼠标拖拽消息
+        if msg.message == win32con.WM_NCHITTEST:
+            pos = QCursor.pos()
+            xPos = pos.x() - self.x()
+            yPos = pos.y() - self.y()
+            w, h = self.width(), self.height()
+            lx = xPos < self.BORDER_WIDTH
+            rx = xPos > w - self.BORDER_WIDTH
+            ty = yPos < self.BORDER_WIDTH
+            by = yPos > h - self.BORDER_WIDTH
+            if lx and ty:
+                return True, win32con.HTTOPLEFT
+            elif rx and by:
+                return True, win32con.HTBOTTOMRIGHT
+            elif rx and ty:
+                return True, win32con.HTTOPRIGHT
+            elif lx and by:
+                return True, win32con.HTBOTTOMLEFT
+            elif ty:
+                return True, win32con.HTTOP
+            elif by:
+                return True, win32con.HTBOTTOM
+            elif lx:
+                return True, win32con.HTLEFT
+            elif rx:
+                return True, win32con.HTRIGHT
+
+        return QWidget.nativeEvent(self, eventType, message)
+
     def setup(self):
+        self.setWindowFlags(Qt.ToolTip)
         with open("settings.json","r",encoding="utf-8") as f:
             self.setting=json.load(f)
+        self.toolButton_4.clicked.connect(self.close)
         self.dateEdit.setMinimumDate(datetime.datetime.now())
+        self.menu.setFrameShape(QListWidget.NoFrame)
         self.checkBox.toggled.connect(lambda:self.setCountdown(self.checkBox.isChecked()))
         self.dateEdit.dateChanged.connect(self.setCountdownDate)
         self.lineEdit_2.textChanged.connect(self.setCountdownThing)
@@ -53,6 +100,7 @@ class Settinger(QWidget,Ui_setting):
         elif self.setting["appearance"]["mode"]=="pic":
             self.radioButton_2.setChecked(True)
         self.windowEffect = WindowEffect()
+        # self.windowEffect.setShadowEffect(int(self.winId()))
         if self.setting["appearance"]["mode"]=="effect":
             if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.15063-SP0"):
                 self.setAttribute(Qt.WA_TranslucentBackground)

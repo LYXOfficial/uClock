@@ -1,7 +1,7 @@
 {
     "appearance":{
         "mode":"effect",
-        "pic":"F:/v2-38ba4d308de729f62a2c334ce874be83_r.jpg"
+        "pic":""
     },
     "countdown":{
         "countdownDay":"2022-06-17",
@@ -13,7 +13,7 @@
     },
     "sidebar":{
         "html":"E:/\u9879\u76ee/uClock/date.html",
-        "type":"calendar",
+        "type":"clock",
         "zoom":0.5
     }
 }

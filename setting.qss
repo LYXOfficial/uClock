@@ -7,77 +7,19 @@ QListView {
 #menu::item {
     background-color: #00000000;
     color: #000000;
-    border: transparent;
-    border-bottom: 1px solid #dbdbdb;
-    padding: 8px;
+    /* border: transparent; */
+    padding: 12px;
 }
 
 #menu::item:hover {
-    background-color: #0000004b;
+    background-color: #00000083;
 }
 
 #menu::item:selected {
     border-left: 5px solid #66ccff;
 }
-
-
-
-
-/* 单选按钮 */
-QRadioButton {
-    spacing: 10px;
-    color: black;
-    font-size: 18px;
-    font-family: 'Segoe UI', 'Microsoft YaHei';
-    background-color: transparent;
-}
-
-QRadioButton::indicator {
-    background-color: transparent;
-}
-
-QRadioButton::indicator:unchecked {
-    height: 22px;
-    width: 22px;
-    border: 2px solid rgb(154, 154, 154);
-    border-radius: 13px;
-}
-
-QRadioButton::indicator:checked {
-    height: 12px;
-    width: 12px;
-    border: 7px solid rgb(0, 153, 188);
-    border-radius: 13px;
-}
-
-QRadioButton::indicator:unchecked:hover {
-    height: 22px;
-    width: 22px;
-    border: 2px solid rgb(120, 120, 120);
-    border-radius: 13px;
-}
-
-QRadioButton::indicator:checked:hover {
-    height: 12px;
-    width: 12px;
-    border: 7px solid rgb(72, 210, 242);
-    border-radius: 13px;
-}
-
-QRadioButton::indicator:unchecked:pressed {
-    height: 22px;
-    width: 22px;
-    background-color: rgb(153, 153, 153);
-    border: 2px solid rgb(84, 84, 84);
-    border-radius: 13px;
-
-}
-
-QRadioButton::indicator:checked:pressed {
-    height: 12px;
-    width: 12px;
-    border: 7px solid rgb(0, 107, 131);
-    border-radius: 13px;
+QWidget{
+    font:"Microsoft YaHei"
 }
 
 
@@ -158,10 +100,11 @@ QSlider::add-page:horizontal {
 
 /* 按钮 */
 QPushButton {
+    font-size: 14px;
     background-color: rgb(204, 204, 204);
     border: none;
     border-radius: 4px;
-    padding: 9px 11px 9px 11px;
+    padding: 6px 6px 6px 6px;
 }
 
 QPushButton:pressed:hover {
@@ -169,21 +112,68 @@ QPushButton:pressed:hover {
 }
 
 QPushButton:hover {
-    background-color: rgb(230, 230, 230);
+    background-color: rgb(120, 120, 120);
 }
 
 
 /* 输入框 */
 QLineEdit {
-    font: 16px 'Segoe UI', 'Microsoft YaHei';
     padding: 6px 11px 6px 11px;
     selection-background-color: rgb(0, 153, 188);
     background-color: rgb(249, 249, 249);
-    border: 1px solid rgb(237, 237, 237);
+    border: 1px solid rgb(120, 120, 120);
     border-radius: 4px;
 }
 
 QLineEdit:hover {
     background-color: rgb(242, 242, 242);
-    border: 1px solid rgb(230, 230, 230);
+    border: 1px solid rgb(120, 120, 120);
+}
+QDateEdit {
+    padding: 6px 11px 6px 11px;
+    selection-background-color: rgb(0, 153, 188);
+    background-color: rgb(249, 249, 249);
+    border: 1px solid rgb(120, 120, 120);
+    border-radius: 4px;
+}
+
+QDateEdit:hover {
+    background-color: rgb(242, 242, 242);
+    border: 1px solid rgb(120, 120, 120);
+}
+QDateEdit::drop-down{
+    border:none;
+    width:30px;
+}
+QComboBox:hover {
+    background-color: rgb(242, 242, 242);
+    border: 1px solid rgb(120, 120, 120);
+}
+QComboBox {
+    padding: 6px 11px 6px 11px;
+    background-color: rgb(249, 249, 249);
+    border: 1px solid rgb(120, 120, 120);
+    border-radius: 4px;
+}
+QCombobox::selection{
+    background-color: rgb(0, 153, 188);
+}
+QComboBox::drop-down{
+    border:none;
+    width:30px;
+}
+QDateEdit::down-arrow {
+    image:url(:./effects/down.jpg);
+}
+#toolButton_4 {
+    color: (0, 0, 0, 255);
+    background: (0, 0, 0, 0)
+}
+#toolButton_4::hover {
+    color: (255, 255, 255);
+    background: (0, 100, 182)
+}
+#toolButton_4::pressed {
+    color: (255, 255, 255);
+    background: (54, 57, 65)
 }
