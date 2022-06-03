@@ -23,12 +23,12 @@ class Settinger(QWidget,Ui_setting):
             json.dump(self.setting,f,sort_keys=True, indent=4, separators=(',', ':'))
         self.hide()
     def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.LeftButton and event.y()<=30:
             self.dragPosition = event.globalPos() - self.frameGeometry().topLeft()
             QApplication.postEvent(self, QEvent(174))
             event.accept()
     def mouseMoveEvent(self, event):
-        if event.buttons() == Qt.LeftButton:
+        if event.buttons() == Qt.LeftButton and event.y()<=30:
             self.move(event.globalPos() - self.dragPosition)
             event.accept()
     def nativeEvent(self, eventType, message):
@@ -65,6 +65,7 @@ class Settinger(QWidget,Ui_setting):
 
     def setup(self):
         self.setWindowFlags(Qt.ToolTip)
+        self.setMouseTracking(True)
         with open("settings.json","r",encoding="utf-8") as f:
             self.setting=json.load(f)
         self.toolButton_4.clicked.connect(self.close)
