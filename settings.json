@@ -13,7 +13,7 @@
     },
     "sidebar":{
         "html":"E:/\u9879\u76ee/uClock/date.html",
-        "type":"clock",
+        "type":"calendar",
         "zoom":0.5
     }
 }

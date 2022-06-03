@@ -1,9 +1,11 @@
 QListView {
     outline: none;
 }
-
+#menu{
+    background-color: #00000000;
+}
 #menu::item {
-    background-color: #ffffff;
+    background-color: #00000000;
     color: #000000;
     border: transparent;
     border-bottom: 1px solid #dbdbdb;
@@ -11,9 +13,177 @@ QListView {
 }
 
 #menu::item:hover {
-    background-color: #f5f5f5;
+    background-color: #0000004b;
 }
 
 #menu::item:selected {
     border-left: 5px solid #66ccff;
+}
+
+
+
+
+/* 单选按钮 */
+QRadioButton {
+    spacing: 10px;
+    color: black;
+    font-size: 18px;
+    font-family: 'Segoe UI', 'Microsoft YaHei';
+    background-color: transparent;
+}
+
+QRadioButton::indicator {
+    background-color: transparent;
+}
+
+QRadioButton::indicator:unchecked {
+    height: 22px;
+    width: 22px;
+    border: 2px solid rgb(154, 154, 154);
+    border-radius: 13px;
+}
+
+QRadioButton::indicator:checked {
+    height: 12px;
+    width: 12px;
+    border: 7px solid rgb(0, 153, 188);
+    border-radius: 13px;
+}
+
+QRadioButton::indicator:unchecked:hover {
+    height: 22px;
+    width: 22px;
+    border: 2px solid rgb(120, 120, 120);
+    border-radius: 13px;
+}
+
+QRadioButton::indicator:checked:hover {
+    height: 12px;
+    width: 12px;
+    border: 7px solid rgb(72, 210, 242);
+    border-radius: 13px;
+}
+
+QRadioButton::indicator:unchecked:pressed {
+    height: 22px;
+    width: 22px;
+    background-color: rgb(153, 153, 153);
+    border: 2px solid rgb(84, 84, 84);
+    border-radius: 13px;
+
+}
+
+QRadioButton::indicator:checked:pressed {
+    height: 12px;
+    width: 12px;
+    border: 7px solid rgb(0, 107, 131);
+    border-radius: 13px;
+}
+
+
+/* 滚动条 */
+QScrollBar {
+    background: transparent;
+    width: 5px;
+    margin-top: 40px;
+    margin-bottom: 133px;
+    padding-right: 2px;
+}
+
+/*隐藏上箭头*/
+QScrollBar::sub-line {
+    background: transparent;
+}
+
+/*隐藏下箭头*/
+QScrollBar::add-line {
+    background: transparent;
+}
+
+QScrollBar::handle {
+    background: rgb(122, 122, 122);
+    border: 2px solid rgb(128, 128, 128);
+    border-radius: 1px;
+    min-height: 40px;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+
+/* 水平滑动条 */
+QSlider:horizontal {
+    height: 26px;
+    width: 188px;
+    background-color: transparent;
+}
+
+QSlider::groove:horizontal {
+    border: none;
+    height: 4px;
+}
+
+QSlider::handle:horizontal {
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    margin-top: -11px;
+    margin-bottom: -11px;
+    background-color: rgb(0, 153, 188);
+}
+
+QSlider::handle:horizontal:hover {
+    background-color: rgb(72, 210, 242);
+}
+
+QSlider::handle:horizontal:pressed {
+    background-color: rgb(0, 107, 131);
+}
+
+
+QSlider::sub-page:horizontal {
+    /*已划过部分的颜色*/
+    background: rgb(0, 153, 187);
+    height: 4px;
+    border-radius: 2px;
+}
+
+QSlider::add-page:horizontal {
+    background-color: rgb(153, 153, 153);
+    height: 4px;
+    border-radius: 2px;
+}
+
+/* 按钮 */
+QPushButton {
+    background-color: rgb(204, 204, 204);
+    border: none;
+    border-radius: 4px;
+    padding: 9px 11px 9px 11px;
+}
+
+QPushButton:pressed:hover {
+    background-color: rgb(153, 153, 153);
+}
+
+QPushButton:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+
+/* 输入框 */
+QLineEdit {
+    font: 16px 'Segoe UI', 'Microsoft YaHei';
+    padding: 6px 11px 6px 11px;
+    selection-background-color: rgb(0, 153, 188);
+    background-color: rgb(249, 249, 249);
+    border: 1px solid rgb(237, 237, 237);
+    border-radius: 4px;
+}
+
+QLineEdit:hover {
+    background-color: rgb(242, 242, 242);
+    border: 1px solid rgb(230, 230, 230);
 }

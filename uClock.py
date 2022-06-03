@@ -12,16 +12,6 @@ import spider
 import datetime
 import platform
 import json
-class aPassWidget(QWidget):
-    def __init__(self,fatherWindow):
-        super().__init__()
-        self.fatherWindow=fatherWindow
-        self.setGeometry(-500, -500, 1, 1)
-        self.setFixedSize(self.width(), self.height())
-        self.setAttribute(Qt.WA_TransparentForMouseEvents, True)
-        self.setAttribute(Qt.WA_TranslucentBackground, True)
-        self.setWindowFlags(Qt.FramelessWindowHint | Qt.Tool)
-        self.setWindowOpacity(0)
 class clockWindow(QSplashScreen,Ui_Form):
     def __init__(self):
         super().__init__()
@@ -31,6 +21,7 @@ class clockWindow(QSplashScreen,Ui_Form):
     def setup(self):
         with open("settings.json","r",encoding="utf-8") as f:
             self.settings=json.load(f)
+        self.settinged=Settinger()
         self.testInternet()
         self.uis()
         self.effects()
@@ -59,7 +50,6 @@ class clockWindow(QSplashScreen,Ui_Form):
         self.closeer.triggered.connect(self.close)
         self.settinger.triggered.connect(self.setting)
         self.piner.triggered.connect(self.pin)
-        self.passWindow=aPassWidget(self)
         # self.view=QWebEngineView()
         self.view.page().setBackgroundColor(Qt.transparent)
         self.view.setAttribute(Qt.WA_TranslucentBackground)
@@ -86,9 +76,9 @@ class clockWindow(QSplashScreen,Ui_Form):
         # else:
         #     self.setWindowFlags(Qt.SplashScreen)
         # # self.setWindowFlags(Qt.SplashScreen)
-        settinged.setWindowFlags(Qt.WindowCloseButtonHint)
+        self.settinged.setWindowFlags(Qt.WindowCloseButtonHint)
     def setting(self):
-        settinged.show()
+        self.settinged.show()
     def pin(self):
         if not self.isActiveWindow():
             self.activateWindow()
@@ -96,8 +86,7 @@ class clockWindow(QSplashScreen,Ui_Form):
         else:
             self.inactivateWindow()
     def inactivateWindow(self):
-        self.passWindow.activateWindow()
-        self.passWindow.showNormal()
+        pass
     def dates(self):
         self.weatherIcon.setPixmap(QPixmap("weathers/未知").scaled(128,128))
         self.date.setText(time.strftime('%Y-%m-%d %a').replace("Mon","周一").replace("Thu", "周二").replace("Wed","周三").replace("Thu", "周四").replace("Fri", "周五").replace("Sat", "周六").replace("Sun","周日"))
@@ -127,28 +116,44 @@ class clockWindow(QSplashScreen,Ui_Form):
                 self.contextMenu.setAttribute(Qt.WA_TranslucentBackground)
                 self.contextMenu.setStyleSheet("""background:transparent；
                 
-QMenu {
-    border-radius: 4px;
-    background:transparent；
+
+ QMenu {
+    background: transparent;
+    border: 0px;
 }
-QMenu::item:text { 
-	color:#000000;
-    font-size:13px
+
+QMenu::item {
+    /* padding-right: 20px;
+    padding-left: 13px; */
+    padding: 7px 20px 7px 13px;
+    background-color: transparent;
 }
-QMenu::item:selected{ 
-	background-color: #e6e6e6;
+
+QMenu::item:selected {
+    border-width: 1px;
+    border-color: rgb(212, 212, 212);
+    background-color: rgba(0, 0, 0, 25);
+    color: black;
 }
-QMenu::item{
-    background-color:#FFFFFF;
-    padding:6px 20px;
-    background:transparent；
+
+QMenu::item {
+    padding: 7px 20px 7px 14px;
 }
- 
+QMenu::item:selected {
+    background-color: rgba(0, 0, 0, 25);
+}
+QMenu::separator {
+    background: rgba(0, 0, 0, 104);
+    margin-right: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 15;
+}
+
 
                 """)
                 self.windowEffect.setAcrylicEffect(int(self.winId()))
                 self.windowEffect.setAcrylicEffect(int(self.contextMenu.winId()),gradientColor="FFFFFF99")
-                self.windowEffect.setShadowEffect(int(self.contextMenu.winId()))
                 self.windowEffect.setShadowEffect(int(self.winId()))
             elif "linux" not in platform.platform().lower() and (platform.platform()=="Windows-7" and platform.platform()<"Windows-8"):
                 self.setAttribute(Qt.WA_TranslucentBackground)
@@ -188,7 +193,6 @@ class timeReloadThread(QThread):
             
 if __name__=="__main__":
     app = QApplication(sys.argv)
-    settinged=Settinger()
     window=clockWindow()
     window.show()
     sys.exit(app.exec_())

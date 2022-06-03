@@ -53,7 +53,14 @@ class Settinger(QWidget,Ui_setting):
         elif self.setting["appearance"]["mode"]=="pic":
             self.radioButton_2.setChecked(True)
         self.windowEffect = WindowEffect()
-        self.setStyleSheet(open("setting.qss",encoding="utf-8").read() )
+        if self.setting["appearance"]["mode"]=="effect":
+            if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.15063-SP0"):
+                self.setAttribute(Qt.WA_TranslucentBackground)
+                self.windowEffect.setAcrylicEffect(int(self.winId()),gradientColor="FFFFFFC9")
+            elif "linux" not in platform.platform().lower() and (platform.platform()=="Windows-7" and platform.platform()<"Windows-8"):
+                self.setAttribute(Qt.WA_TranslucentBackground)
+                self.windowEffect.setAeroEffect(int(self.winId()))
+        self.setStyleSheet(open("setting.qss",encoding="utf-8").read())
     def setError(self):
         self.setting["network"]["doNotTraceback"]=self.checkBox_3.isChecked()
     def setZoomFactor(self):
