@@ -1,25 +1,29 @@
+
 #menu{
     background-color: #00000000;
+    outline: 0px;
 }
 #menu::item {
-    margin: 5px;
-    background:transparent;
+    background-color: #00000000;
+    margin: 0px 0px 0px 4px;
     color: #000000;
     border: transparent;
-    padding: 5px;
+    padding: 12px;
+    border-left: 2px solid #00000000
 }
-
 #menu::item:hover {
     background-color: #00000046;
 }
 
 #menu::item:selected {
-    border-left: 5px solid #66ccff;
+    border-left: 2px solid #66ccff;
 }
 QWidget{
     font:"Microsoft YaHei"
 }
-
+QStackedWidget{
+    background-color:#FFFFFF;
+}
 
 /* 滚动条 */
 QScrollBar {
@@ -112,7 +116,21 @@ QPushButton:pressed:hover {
 QPushButton:hover {
     background-color: rgb(120, 120, 120);
 }
+QToolButton {
+    font-size: 14px;
+    background-color: rgb(204, 204, 204);
+    border: none;
+    border-radius: 4px;
+    padding: 6px 6px 6px 6px;
+}
 
+QToolButton:pressed:hover {
+    background-color: rgb(153, 153, 153);
+}
+
+QToolButton:hover {
+    background-color: rgb(120, 120, 120);
+}
 
 /* 输入框 */
 QLineEdit {
@@ -143,6 +161,29 @@ QDateEdit::drop-down{
     border:none;
     width:30px;
 }
+QDoubleSpinBox {
+    padding: 6px 11px 6px 11px;
+    selection-background-color: rgb(0, 153, 188);
+    background-color: rgb(249, 249, 249);
+    border: 1px solid rgb(120, 120, 120);
+    border-radius: 4px;
+}
+
+QDoubleSpinBox:hover {
+    background-color: rgb(242, 242, 242);
+    border: 1px solid rgb(120, 120, 120);
+}
+QDoubleSpinBox::drop-down{
+    border:none;
+    width:30px;
+}
+QDoubleSpinBox::up-button {
+    background-image:url(/effects/down.jpg)
+}
+    
+QDoubleSpinBox::down-button {
+    background-image:url(/effects/down.jpg)
+}
 QComboBox:hover {
     background-color: rgb(242, 242, 242);
     border: 1px solid rgb(120, 120, 120);
@@ -164,17 +205,18 @@ QComboBox::drop-down{
     width:30px;
 }
 QDateEdit::down-arrow {
-    image:url(:./effects/down.jpg);
+    background-image:url(/effects/down.jpg);
 }
-#toolButton_4 {
-    color: (0, 0, 0, 255);
-    background: (0, 0, 0, 0)
+#toolButton_4{
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0px;
+    padding: 7px 9px 7px 9px;
+    font: size 10px;
 }
-#toolButton_4::hover {
-    color: (255, 255, 255);
-    background: (0, 100, 182)
+#toolButton_4::hover{
+    background-color: rgb(236, 27, 27);
+    color:#FFFFFF;
 }
-#toolButton_4::pressed {
-    color: (255, 255, 255);
-    background: (54, 57, 65)
+#toolButton_4::pressed{
+    background-color: rgb(255, 31, 1)
 }

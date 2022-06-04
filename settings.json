@@ -12,7 +12,7 @@
         "doNotTraceback":true
     },
     "sidebar":{
-        "html":"E:/\u9879\u76ee/uClock/date.html",
+        "html":"",
         "type":"clock",
         "zoom":0.5
     }

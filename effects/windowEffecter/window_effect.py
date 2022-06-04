@@ -1,7 +1,7 @@
 # coding:utf-8
 
-from ctypes import POINTER, c_bool, sizeof, windll,pointer,c_int,cdll
-from ctypes.wintypes import DWORD, HWND, ULONG
+from ctypes import POINTER, c_bool, sizeof, windll,pointer,c_int,cdll,WinDLL,byref
+from ctypes.wintypes import DWORD, HWND, ULONG,LONG,LPCVOID
 
 from PyQt5 import QtWidgets,QtCore
 from PyQt5.QtWinExtras import QtWin
@@ -9,14 +9,19 @@ from PyQt5.QtWinExtras import QtWin
 from win32 import win32api, win32gui
 from win32.lib import win32con
 
-from .c_structures import (ACCENT_POLICY, ACCENT_STATE,
-                           WINDOWCOMPOSITIONATTRIB,
-                           WINDOWCOMPOSITIONATTRIBDATA)
+from .c_structures import *
 
 
 class WindowEffect():
     """ 调用windows api实现窗口效果 """
-    dll = cdll.LoadLibrary('effects/windowEffect.dll')
+    dwmapi = WinDLL("dwmapi")
+    DwmExtendFrameIntoClientArea = dwmapi.DwmExtendFrameIntoClientArea
+    DwmSetWindowAttribute = dwmapi.DwmSetWindowAttribute
+    DwmExtendFrameIntoClientArea.restype = LONG
+    DwmSetWindowAttribute.restype = LONG
+    DwmSetWindowAttribute.argtypes = [c_int, DWORD, LPCVOID, DWORD]
+    DwmExtendFrameIntoClientArea.argtypes = [c_int, POINTER(MARGINS)]
+
     def __init__(self):
         # 调用api
         self.SetWindowCompositionAttribute = windll.user32.SetWindowCompositionAttribute
@@ -68,8 +73,16 @@ class WindowEffect():
         self.SetWindowCompositionAttribute(hWnd, pointer(self.winCompAttrData))
 
     def setShadowEffect(self, hWnd):
-        """ 直接添加新阴影 """
-        self.dll.addShadowEffect(c_bool(True), hWnd)
+        hWnd = int(hWnd)
+        self.DwmSetWindowAttribute(
+            hWnd,
+            DWMWINDOWATTRIBUTE.DWMWA_NCRENDERING_POLICY.value,
+            byref(c_int(DWMNCRENDERINGPOLICY.DWMNCRP_ENABLED.value)),
+            4,
+        )
+        margins = MARGINS(-1, -1, -1, -1)
+        self.DwmExtendFrameIntoClientArea(hWnd, byref(margins))
+
         
     def moveWindow(self, hWnd: int):
         """ 移动窗口
@@ -80,5 +93,23 @@ class WindowEffect():
         win32gui.ReleaseCapture()
         win32api.SendMessage(hWnd, win32con.WM_SYSCOMMAND,
                     win32con.SC_MOVE + win32con.HTCAPTION, 0)
+    def addWindowAnimation(self, hWnd):
+        """ 还原窗口动画效果
 
-        
+        Parameters
+        ----------
+        hWnd : int or `sip.voidptr`
+            窗口句柄
+        """
+        hWnd = int(hWnd)
+        style = win32gui.GetWindowLong(hWnd, win32con.GWL_STYLE)
+        win32gui.SetWindowLong(
+            hWnd,
+            win32con.GWL_STYLE,
+            style
+            | win32con.WS_MAXIMIZEBOX
+            | win32con.WS_CAPTION
+            | win32con.CS_DBLCLKS
+            | win32con.WS_THICKFRAME,
+        )
+            
