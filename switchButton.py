@@ -1,10 +1,10 @@
 # coding: utf-8
 from PyQt5.QtCore import QFile, Qt, QTimer, pyqtProperty, pyqtSignal
 from PyQt5.QtGui import QColor, QPainter
-from PyQt5.QtWidgets import QHBoxLayout, QLabel, QCheckBox, QWidget
+from PyQt5.QtWidgets import QHBoxLayout, QLabel, QToolButton, QWidget
 
 
-class Indicator(QCheckBox):
+class Indicator(QToolButton):
     """ Indicator of switch button """
 
     checkedChanged = pyqtSignal(bool)
@@ -24,7 +24,6 @@ class Indicator(QCheckBox):
         self.sliderEndX = self.width()-2*self.sliderRadius
         self.sliderStep = self.width()/50
         self.timer.timeout.connect(self.__updateSliderPos)
-
     def __updateSliderPos(self):
         """ update slider position """
         if self.isChecked():
@@ -116,15 +115,15 @@ class Indicator(QCheckBox):
 class SwitchButton(QWidget):
     """ Switch button class """
 
-    checkedChanged = pyqtSignal(bool)
+    clicked = pyqtSignal(bool)
 
-    def __init__(self, text='关', parent=None):
+    def __init__(self,parent):
         super().__init__(parent=parent)
-        self.text = text
+        self.text = ""
         self.__spacing = 15
         self.hBox = QHBoxLayout(self)
         self.indicator = Indicator(self)
-        self.label = QLabel(text, self)
+        self.label = QLabel(self.text, self)
         self.__initWidget()
 
     def __initWidget(self):
@@ -142,7 +141,7 @@ class SwitchButton(QWidget):
             self.setStyleSheet(f.read())
 
         # connect signal to slot
-        self.indicator.checkedChanged.connect(self.checkedChanged)
+        self.indicator.checkedChanged.connect(self.clicked)
 
     def isChecked(self):
         return self.indicator.isChecked()

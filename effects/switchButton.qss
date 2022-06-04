@@ -8,17 +8,18 @@ SwitchButton {
 
 SwitchButton > QLabel {
     color: black;
-    font: 18px 'Microsoft YaHei';
+    font-family: "萍方0";
+    font-size:14px;
 }
 
 
 Indicator {
-    height: 22px;
-    width: 50px;
+    height: 7px;
+    width: 30px;
     qproperty-sliderOnColor: white;
     qproperty-sliderOffColor: black;
     qproperty-sliderDisabledColor: rgb(155, 154, 153);
-    border-radius: 13px;
+    border-radius: 11px;
 }
 
 
