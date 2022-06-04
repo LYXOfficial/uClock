@@ -178,11 +178,11 @@ QDoubleSpinBox::drop-down{
     width:30px;
 }
 QDoubleSpinBox::up-button {
-    background-image:url(/effects/down.jpg)
+    background-image:url(./effects/pics/up.png)
 }
     
 QDoubleSpinBox::down-button {
-    background-image:url(/effects/down.jpg)
+    background-image:url(./effects/pics/down.png)
 }
 QComboBox:hover {
     background-color: rgb(242, 242, 242);
@@ -205,7 +205,7 @@ QComboBox::drop-down{
     width:30px;
 }
 QDateEdit::down-arrow {
-    background-image:url(/effects/down.jpg);
+    background-image:url(./effects/pics/down.png);
 }
 #toolButton_4{
     background-color: rgba(0, 0, 0, 0);
