@@ -184,7 +184,7 @@ class Ui_setting(object):
         self.lineEdit_2.setEnabled(False)
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.gridLayout_3.addWidget(self.lineEdit_2, 3, 1, 1, 3)
-        self.checkBox = QtWidgets.QCheckBox(self.page_4)
+        self.checkBox = SwitchButton(self.page_4)
         self.checkBox.setObjectName("checkBox")
         self.gridLayout_3.addWidget(self.checkBox, 2, 0, 1, 3)
         self.label_3 = QtWidgets.QLabel(self.page_4)
@@ -297,3 +297,4 @@ class Ui_setting(object):
         self.pushButton.setText(_translate("setting", "捐助作者！"))
         self.checkBox_2.setText(_translate("setting", "开机自启"))
         self.pushButton_3.setText(_translate("setting", "更新日志"))
+import switchButton.SwitchButton as SwitchButton

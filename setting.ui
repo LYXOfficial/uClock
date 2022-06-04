@@ -479,7 +479,7 @@
         </widget>
        </item>
        <item row="2" column="0" colspan="3">
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="SwitchButton" name="checkBox">
          <property name="text">
           <string>启用倒计时</string>
          </property>
@@ -632,6 +632,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SwitchButton</class>
+   <extends>QCheckBox</extends>
+   <header>switchButton</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

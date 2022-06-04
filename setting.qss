@@ -12,7 +12,7 @@
     border-left: 2px solid #00000000
 }
 #menu::item:hover {
-    background-color: #00000046;
+    background-color: #e2e2e2;
 }
 
 #menu::item:selected {
@@ -220,3 +220,4 @@ QDateEdit::down-arrow {
 #toolButton_4::pressed{
     background-color: rgb(255, 31, 1)
 }
+

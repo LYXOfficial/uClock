@@ -132,7 +132,7 @@ class Settinger(QWidget,Ui_setting):
         elif self.setting["appearance"]["mode"]=="pic":
             self.radioButton_2.setChecked(True)
         self.windowEffect = WindowEffect()
-        # self.windowEffect.setShadowEffect(int(self.winId()))
+        #self.windowEffect.setShadowEffect(int(self.winId()))
         if self.setting["appearance"]["mode"]=="effect":
             if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.15063-SP0"):
                 self.setAttribute(Qt.WA_TranslucentBackground)
@@ -166,7 +166,7 @@ class Settinger(QWidget,Ui_setting):
             self.toolButton.setDisabled(True)
             self.setting["sidebar"]["type"]="clock"
     def about(self):
-        QMessageBox.about(self,"关于uClock","UCLOCK By LYX\nv1.0\n基于Python3.8与PyQt5构建")
+        QMessageBox.about(self,"关于uClock","UCLOCK By LYX\nv1.1\n基于Python3.8与PyQt5构建")
     def setPic(self):
         self.setting["appearance"]["pic"]=self.lineEdit_3.text()
     def getPic(self):
