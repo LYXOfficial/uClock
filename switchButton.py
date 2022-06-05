@@ -47,7 +47,8 @@ class Indicator(QToolButton):
             return
 
         super().setChecked(isChecked)
-        self.sliderEndX = self.width()-2*self.sliderRadius - \
+        #-2*self.sliderRadius错误，已改正
+        self.sliderEndX = self.width() - \
             self.padding if self.isChecked() else self.padding
         self.timer.start(5)
 

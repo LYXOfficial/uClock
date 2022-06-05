@@ -16,19 +16,19 @@ class Settinger(QWidget,Ui_setting):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowIcon(QIcon("./effects/setting.png"))
+        self.setWindowIcon(QIcon("./effects/pics/uclock.png"))
         self.setup()
     def closeEvent(self,event):
         with open("settings.json","w+",encoding="utf-8") as f:
             json.dump(self.setting,f,sort_keys=True, indent=4, separators=(',', ':'))
         self.hide()
     def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton and event.y()<=25:
+        if event.button() == Qt.LeftButton and event.y()<=30:
             self.dragPosition = event.globalPos() - self.frameGeometry().topLeft()
             QApplication.postEvent(self, QEvent(174))
             event.accept()
     def mouseMoveEvent(self, event):
-        if event.buttons() == Qt.LeftButton and event.y()<=25:
+        if event.buttons() == Qt.LeftButton and event.y()<=30:
             self.move(event.globalPos() - self.dragPosition)
             event.accept()
     def nativeEvent(self, eventType, message):
@@ -99,7 +99,8 @@ class Settinger(QWidget,Ui_setting):
         self.setMouseTracking(True)
         with open("settings.json","r",encoding="utf-8") as f:
             self.setting=json.load(f)
-        self.toolButton_4.clicked.connect(self.close)
+        self.label_18.setPixmap(QPixmap("effects/pics/uclock.png").scaled(QSize(128,128)))
+        self.label_22.setText(self.label_22.text().format("1.1"))
         self.dateEdit.setMinimumDate(datetime.datetime.now())
         self.menu.setFrameShape(QListWidget.NoFrame)
         self.checkBox.clicked.connect(lambda:self.setCountdown(self.checkBox.isChecked()))
@@ -109,7 +110,6 @@ class Settinger(QWidget,Ui_setting):
         self.radioButton_2.toggled.connect(self.setEffect)
         self.toolButton_2.clicked.connect(self.getPic)
         self.lineEdit_3.textChanged.connect(self.setPic)
-        self.pushButton_2.clicked.connect(self.about)
         self.comboBox.currentIndexChanged[str].connect(self.onCom)
         self.toolButton.clicked.connect(self.getHtml)
         self.doubleSpinBox.valueChanged.connect(self.setZoomFactor)
@@ -131,8 +131,13 @@ class Settinger(QWidget,Ui_setting):
             self.radioButton.setChecked(True)
         elif self.setting["appearance"]["mode"]=="pic":
             self.radioButton_2.setChecked(True)
+        if self.checkBox.isChecked():
+            self.label_3.setEnabled(True)
+            self.label_4.setEnabled(True)
+            self.lineEdit_2.setEnabled(True)
+            self.dateEdit.setEnabled(True)
         self.windowEffect = WindowEffect()
-        #self.windowEffect.setShadowEffect(int(self.winId()))
+        # self.windowEffect.setShadowEffect(int(self.winId()))
         if self.setting["appearance"]["mode"]=="effect":
             if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.15063-SP0"):
                 self.setAttribute(Qt.WA_TranslucentBackground)
@@ -140,8 +145,8 @@ class Settinger(QWidget,Ui_setting):
             elif "linux" not in platform.platform().lower() and (platform.platform()=="Windows-7" and platform.platform()<"Windows-8"):
                 self.setAttribute(Qt.WA_TranslucentBackground)
                 self.windowEffect.setAeroEffect(int(self.winId()))
-        self.setStyleSheet(open("setting.qss",encoding="utf-8").read())
-        #self.windowEffect.addWindowAnimation(int(self.winId()))
+        self.setStyleSheet(open("effects/setting.qss",encoding="utf-8").read())
+        self.windowEffect.addWindowAnimation(int(self.winId()))
     def setError(self):
         self.setting["network"]["doNotTraceback"]=self.checkBox_3.isChecked()
     def setZoomFactor(self):

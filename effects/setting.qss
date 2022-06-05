@@ -1,9 +1,9 @@
 
-#menu{
+QListWidget{
     background-color: #00000000;
     outline: 0px;
 }
-#menu::item {
+QListWidget::item {
     background-color: #00000000;
     margin: 0px 0px 0px 4px;
     color: #000000;
@@ -11,11 +11,11 @@
     padding: 12px;
     border-left: 2px solid #00000000
 }
-#menu::item:hover {
+QListWidget::item:hover {
     background-color: #e2e2e2;
 }
 
-#menu::item:selected {
+QListWidget::item:selected {
     border-left: 2px solid #66ccff;
 }
 QWidget{
@@ -178,11 +178,11 @@ QDoubleSpinBox::drop-down{
     width:30px;
 }
 QDoubleSpinBox::up-button {
-    background-image:url(./effects/pics/up.png)
+    image:url(./effects/pics/up.png)
 }
     
 QDoubleSpinBox::down-button {
-    background-image:url(./effects/pics/down.png)
+    image:url(./effects/pics/down.png)
 }
 QComboBox:hover {
     background-color: rgb(242, 242, 242);
@@ -204,8 +204,11 @@ QComboBox::drop-down{
     border:none;
     width:30px;
 }
+QComboBox::down-arrow{
+    image:url(./effects/pics/down.png);
+}
 QDateEdit::down-arrow {
-    background-image:url(./effects/pics/down.png);
+    image:url(./effects/pics/down.png);
 }
 #toolButton_4{
     background-color: rgba(0, 0, 0, 0);
