@@ -9,8 +9,39 @@ import spider
 import datetime
 import platform
 import json
-from ctypes.wintypes import MSG
+from ctypes.wintypes import *
+from ctypes import *
 from win32.lib import win32con
+from win32 import win32gui,win32api
+class PWINDOWPOS(Structure):
+    _fields_ = [
+        ('hWnd',            HWND),
+        ('hwndInsertAfter', HWND),
+        ('x',               c_int),
+        ('y',               c_int),
+        ('cx',              c_int),
+        ('cy',              c_int),
+        ('flags',           UINT)
+    ]
+class NCCALCSIZE_PARAMS(Structure):
+    _fields_ = [
+        ('rgrc', RECT*3),
+        ('lppos', POINTER(PWINDOWPOS))
+    ]
+class MINMAXINFO(Structure):
+    _fields_ = [
+        ("ptReserved",      POINT),
+        ("ptMaxSize",       POINT),
+        ("ptMaxPosition",   POINT),
+        ("ptMinTrackSize",  POINT),
+        ("ptMaxTrackSize",  POINT),
+    ]
+class NCCALCSIZE_PARAMS(Structure):
+    _fields_ = [
+        ('rgrc', RECT*3),
+        ('lppos', POINTER(PWINDOWPOS))
+    ]
+
 class Settinger(QWidget,Ui_setting):
     BORDER_WIDTH = 5
     def __init__(self):
@@ -18,19 +49,31 @@ class Settinger(QWidget,Ui_setting):
         self.setupUi(self)
         self.setWindowIcon(QIcon("./effects/pics/uclock.png"))
         self.setup()
+    def monitorNCCALCSIZE(self, msg: MSG):
+        """ 调整窗口大小 """
+        monitor = win32api.MonitorFromWindow(msg.hWnd)
+
+        # 如果没有保存显示器信息就直接返回，否则接着调整窗口大小
+        if monitor is None and not self.monitor_info:
+            return
+        elif monitor is not None:
+            self.monitor_info = win32api.GetMonitorInfo(monitor)
+
+        # 调整窗口大小
+        params = cast(msg.lParam, POINTER(NCCALCSIZE_PARAMS)).contents
+        params.rgrc[0].left = self.monitor_info['Work'][0]
+        params.rgrc[0].top = self.monitor_info['Work'][1]
+        params.rgrc[0].right = self.monitor_info['Work'][2]
+        params.rgrc[0].bottom = self.monitor_info['Work'][3]
     def closeEvent(self,event):
         with open("settings.json","w+",encoding="utf-8") as f:
             json.dump(self.setting,f,sort_keys=True, indent=4, separators=(',', ':'))
         self.hide()
-    def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton and event.y()<=30:
-            self.dragPosition = event.globalPos() - self.frameGeometry().topLeft()
-            QApplication.postEvent(self, QEvent(174))
-            event.accept()
     def mouseMoveEvent(self, event):
         if event.buttons() == Qt.LeftButton and event.y()<=30:
-            self.move(event.globalPos() - self.dragPosition)
-            event.accept()
+            # self.move(event.globalPos() - self.dragPosition)
+            # event.accept()
+            self.windowEffect.moveWindow(int(self.winId()))
     def nativeEvent(self, eventType, message):
         """ 处理 Windows 消息 """
         msg = MSG.from_address(message.__int__())
@@ -59,43 +102,61 @@ class Settinger(QWidget,Ui_setting):
                 return True, win32con.HTLEFT
             elif rx:
                 return True, win32con.HTRIGHT
-        # if msg.message == win32con.WM_NCCALCSIZE:
-        #     if self.isWindowMaximized(msg.hWnd):
-        #         self.monitorNCCALCSIZE(msg)
-        #     return True, 0
-        # elif msg.message == win32con.WM_GETMINMAXINFO:
-        #     if self.isWindowMaximized(msg.hWnd):
-        #         window_rect = win32gui.GetWindowRect(msg.hWnd)
-        #         if not window_rect:
-        #             return False, 0
+        # if msg.message==win32con.WM_SYSCOMMAND:
+        #     if not self.isActiveWindow():
+        #         self.activateWindow()
+        #     else:
+        #         self.showMinimized()
+        if msg.message == win32con.WM_NCCALCSIZE:
+            if self.isWindowMaximized(msg.hWnd):
+                self.monitorNCCALCSIZE(msg)
+            return True, 0
+        elif msg.message == win32con.WM_GETMINMAXINFO:
+            if self.isWindowMaximized(msg.hWnd):
+                window_rect = win32gui.GetWindowRect(msg.hWnd)
+                if not window_rect:
+                    return False, 0
 
-        #         # 获取显示器句柄
-        #         monitor = win32api.MonitorFromRect(window_rect)
-        #         if not monitor:
-        #             return False, 0
+                # 获取显示器句柄
+                monitor = win32api.MonitorFromRect(window_rect)
+                if not monitor:
+                    return False, 0
 
-        #         # 获取显示器信息
-        #         monitor_info = win32api.GetMonitorInfo(monitor)
-        #         monitor_rect = monitor_info['Monitor']
-        #         work_area = monitor_info['Work']
+                # 获取显示器信息
+                monitor_info = win32api.GetMonitorInfo(monitor)
+                monitor_rect = monitor_info['Monitor']
+                work_area = monitor_info['Work']
 
-        #         # 将 lParam 转换为 MINMAXINFO 指针
-        #         info = cast(msg.lParam, POINTER(MINMAXINFO)).contents
+                # 将 lParam 转换为 MINMAXINFO 指针
+                info = cast(msg.lParam, POINTER(MINMAXINFO)).contents
 
-        #         # 调整窗口大小
-        #         info.ptMaxSize.x = work_area[2] - work_area[0]
-        #         info.ptMaxSize.y = work_area[3] - work_area[1]
-        #         info.ptMaxTrackSize.x = info.ptMaxSize.x
-        #         info.ptMaxTrackSize.y = info.ptMaxSize.y
+                # 调整窗口大小
+                info.ptMaxSize.x = work_area[2] - work_area[0]
+                info.ptMaxSize.y = work_area[3] - work_area[1]
+                info.ptMaxTrackSize.x = info.ptMaxSize.x
+                info.ptMaxTrackSize.y = info.ptMaxSize.y
 
-        #         # 修改左上角坐标
-        #         info.ptMaxPosition.x = abs(window_rect[0] - monitor_rect[0])
-        #         info.ptMaxPosition.y = abs(window_rect[1] - monitor_rect[1])
-        #         return True, 1
+                # 修改左上角坐标
+                info.ptMaxPosition.x = abs(window_rect[0] - monitor_rect[0])
+                info.ptMaxPosition.y = abs(window_rect[1] - monitor_rect[1])
+                return True, 1
         return QWidget.nativeEvent(self, eventType, message)
+    def isWindowMaximized(self, hWnd) -> bool:
+        """ 判断窗口是否最大化 """
+        # 返回指定窗口的显示状态以及被恢复的、最大化的和最小化的窗口位置，返回值为元组
+        windowPlacement = win32gui.GetWindowPlacement(hWnd)
+        if not windowPlacement:
+            return False
+        return windowPlacement[1] == win32con.SW_MAXIMIZE
+    def onItem(self,s):
+        for y in range(3000,0,-1):
+            QApplication.processEvents()
+            self.view.currentWidget().setGeometry(0,y//10,self.view.currentWidget().width(),self.view.currentWidget().height())
+        self.view.setCurrentIndex(s)
     def setup(self):
-        self.setWindowFlags(Qt.ToolTip)
-        #self.setWindowFlags(Qt.CustomizeWindowHint)
+        self.toolButton_6.hide()
+        # self.setWindowFlags(Qt.SplashScreen)
+        self.setWindowFlags(Qt.CustomizeWindowHint|Qt.WindowMinMaxButtonsHint)
         self.setMouseTracking(True)
         with open("settings.json","r",encoding="utf-8") as f:
             self.setting=json.load(f)
@@ -112,6 +173,7 @@ class Settinger(QWidget,Ui_setting):
         self.lineEdit_3.textChanged.connect(self.setPic)
         self.comboBox.currentIndexChanged[str].connect(self.onCom)
         self.toolButton.clicked.connect(self.getHtml)
+        self.menu.currentRowChanged[int].connect(self.onItem)
         self.doubleSpinBox.valueChanged.connect(self.setZoomFactor)
         self.checkBox_3.clicked.connect(self.setError)
         self.dateEdit.setDate(datetime.datetime.strptime(self.setting["countdown"]["countdownDay"], '%Y-%m-%d'))

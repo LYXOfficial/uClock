@@ -130,8 +130,7 @@ QMenu::item {
 }
 
 QMenu::item:selected {
-    border-width: 1px;
-    border-color: rgb(212, 212, 212);
+
     background-color: rgba(0, 0, 0, 25);
     color: black;
 }

@@ -1,7 +1,7 @@
 # coding:utf-8
-
-from ctypes import POINTER, c_bool, sizeof, windll,pointer,c_int,cdll,WinDLL,byref
-from ctypes.wintypes import DWORD, HWND, ULONG,LONG,LPCVOID
+import sys
+from ctypes import *
+from ctypes.wintypes import *
 
 from PyQt5 import QtWidgets,QtCore
 from PyQt5.QtWinExtras import QtWin
@@ -34,7 +34,6 @@ class WindowEffect():
         self.winCompAttrData.Attribute = WINDOWCOMPOSITIONATTRIB.WCA_ACCENT_POLICY.value[0]
         self.winCompAttrData.SizeOfData = sizeof(self.accentPolicy)
         self.winCompAttrData.Data = pointer(self.accentPolicy)
-
     def setAcrylicEffect(self, hWnd: int, gradientColor: str = 'F2F2F230', isEnableShadow: bool = True, animationId: int = 0):
         """ 给窗口开启Win10的亚克力效果 F2F2F230
 

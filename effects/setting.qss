@@ -224,3 +224,42 @@ QDateEdit::down-arrow {
     background-color: rgb(255, 31, 1)
 }
 
+#toolButton_3{
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0px;
+    padding: 7px 9px 7px 9px;
+    font: size 10px;
+}
+#toolButton_3::hover{
+    background-color: rgb(209, 209, 209);
+}
+#toolButton_3::pressed{
+    background-color: rgb(209, 209, 209)
+}
+#toolButton_5{
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0px;
+    padding: 7px 9px 7px 9px;
+    font: size 10px;
+}
+#toolButton_5::hover{
+    background-color: rgb(209, 209, 209);
+}
+#toolButton_5::pressed{
+    background-color: rgb(209, 209, 209)
+}
+
+
+#toolButton_6{
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0px;
+    padding: 7px 9px 7px 9px;
+    font: size 10px;
+}
+#toolButton_6::hover{
+    background-color: rgb(209, 209, 209);
+}
+#toolButton_6::pressed{
+    background-color: rgb(209, 209, 209)
+}
+
