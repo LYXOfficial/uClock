@@ -15,7 +15,7 @@ from .c_structures import (ACCENT_POLICY, ACCENT_STATE, DWMNCRENDERINGPOLICY,
                            WINDOWCOMPOSITIONATTRIBDATA)
 
 
-class WindowEffect:
+class WindowsWindowEffect:
     """ Windows window effect """
 
     def __init__(self):
@@ -147,14 +147,15 @@ class WindowEffect:
             hWnd, win32con.WM_SYSCOMMAND, win32con.SC_MOVE + win32con.HTCAPTION, 0
         )
 
-    def setShadowEffect(self, hWnd):
+    def addShadowEffect(self, hWnd):
+        """ Add DWM shadow to window
+
+        Parameters
+        ----------
+        hWnd: int or `sip.voidptr`
+            Window handle
+        """
         hWnd = int(hWnd)
-        self.DwmSetWindowAttribute(
-            hWnd,
-            DWMWINDOWATTRIBUTE.DWMWA_NCRENDERING_POLICY.value,
-            byref(c_int(DWMNCRENDERINGPOLICY.DWMNCRP_ENABLED.value)),
-            4,
-        )
         margins = MARGINS(-1, -1, -1, -1)
         self.DwmExtendFrameIntoClientArea(hWnd, byref(margins))
 

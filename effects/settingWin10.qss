@@ -1,9 +1,8 @@
-
-QListWidget{
+#menu{
     background-color: #00000000;
     outline: 0px;
 }
-QListWidget::item {
+#menu::item {
     background-color: #00000000;
     margin: 0px 0px 0px 4px;
     color: #000000;
@@ -11,13 +10,14 @@ QListWidget::item {
     padding: 12px;
     border-left: 2px solid #00000000
 }
-QListWidget::item:hover {
+#menu::item:hover {
     background-color: #e2e2e2;
 }
 
-QListWidget::item:selected {
+#menu::item:selected {
     border-left: 2px solid #66ccff;
 }
+
 QWidget{
     font:"Microsoft YaHei"
 }
@@ -105,7 +105,7 @@ QPushButton {
     font-size: 14px;
     background-color: rgb(204, 204, 204);
     border: none;
-    border-radius: 4px;
+    border-radius: 0px;
     padding: 6px 6px 6px 6px;
 }
 
@@ -120,7 +120,7 @@ QToolButton {
     font-size: 14px;
     background-color: rgb(204, 204, 204);
     border: none;
-    border-radius: 4px;
+    border-radius: 0px;
     padding: 6px 6px 6px 6px;
 }
 
@@ -137,25 +137,25 @@ QLineEdit {
     padding: 6px 11px 6px 11px;
     selection-background-color: rgb(0, 153, 188);
     background-color: rgb(249, 249, 249);
-    border: 1px solid rgb(120, 120, 120);
-    border-radius: 4px;
+    border: 1px solid rgb(150, 150,150);
+    border-radius: 0px;
 }
 
 QLineEdit:hover {
     background-color: rgb(242, 242, 242);
-    border: 1px solid rgb(120, 120, 120);
+    border: 1px solid rgb(150, 150,150);
 }
 QDateEdit {
     padding: 6px 11px 6px 11px;
     selection-background-color: rgb(0, 153, 188);
     background-color: rgb(249, 249, 249);
-    border: 1px solid rgb(120, 120, 120);
-    border-radius: 4px;
+    border: 1px solid rgb(150, 150,150);
+    border-radius: 0px;
 }
 
 QDateEdit:hover {
     background-color: rgb(242, 242, 242);
-    border: 1px solid rgb(120, 120, 120);
+    border: 1px solid rgb(150, 150,150);
 }
 QDateEdit::drop-down{
     border:none;
@@ -165,13 +165,13 @@ QDoubleSpinBox {
     padding: 6px 11px 6px 11px;
     selection-background-color: rgb(0, 153, 188);
     background-color: rgb(249, 249, 249);
-    border: 1px solid rgb(120, 120, 120);
-    border-radius: 4px;
+    border: 1px solid rgb(150, 150,150);
+    border-radius: 0px;
 }
 
 QDoubleSpinBox:hover {
     background-color: rgb(242, 242, 242);
-    border: 1px solid rgb(120, 120, 120);
+    border: 1px solid rgb(150, 150,150);
 }
 QDoubleSpinBox::drop-down{
     border:none;
@@ -184,15 +184,16 @@ QDoubleSpinBox::up-button {
 QDoubleSpinBox::down-button {
     image:url(./effects/pics/down.png)
 }
+
 QComboBox:hover {
     background-color: rgb(242, 242, 242);
-    border: 1px solid rgb(120, 120, 120);
+    border: 1px solid rgb(150, 150,150);
 }
 QComboBox {
     padding: 6px 11px 6px 11px;
     background-color: rgb(249, 249, 249);
-    border: 1px solid rgb(120, 120, 120);
-    border-radius: 4px;
+    border: 1px solid rgb(150, 150,150);
+    border-radius: 0px;
 }
 QComboBox QAbstractItemView::item{
     height: 50px;
@@ -253,7 +254,7 @@ QDateEdit::down-arrow {
 #toolButton_6{
     background-color: rgba(0, 0, 0, 0);
     border-radius: 0px;
-    padding: 7px 9px 7px 9px;
+    padding: 7px 18px 7px 18px;
     font: size 10px;
 }
 #toolButton_6::hover{

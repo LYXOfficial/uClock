@@ -40,6 +40,7 @@ class clockWindow(QSplashScreen,Ui_Form):
             except:
                 QMessageBox.warning(self,"错误","系统未联网，可能会影响功能使用")
     def uis(self):
+        self.weatherIcon.setPixmap(QPixmap("weathers/未知").scaled(QSize(128,128)))
         self.setContextMenuPolicy(Qt.CustomContextMenu)  
         self.customContextMenuRequested.connect(lambda:self.contextMenu.exec_(QCursor.pos())) 
         self.contextMenu = QMenu(self)
@@ -88,19 +89,10 @@ class clockWindow(QSplashScreen,Ui_Form):
     def inactivateWindow(self):
         pass
     def dates(self):
-        self.weatherIcon.setPixmap(QPixmap("weathers/未知").scaled(128,128))
-        self.date.setText(time.strftime('%Y-%m-%d %a').replace("Mon","周一").replace("Thu", "周二").replace("Wed","周三").replace("Thu", "周四").replace("Fri", "周五").replace("Sat", "周六").replace("Sun","周日"))
-        a=datetime.date.today()
-        dt_date = datetime.datetime(a.year,a.month,a.day)
-        date = lunar_date.from_datetime(dt_date).chinese()
-        self.chinese.setText(date[:-4]+spider.holiday())
-        self.famous.setWordWrap(True)
-        self.famous.setText(spider.famous())
-        w=spider.weather()
-        self.weather.setText(w[0]+" "+w[1])
-        self.weatherIcon.setPixmap(QPixmap("weathers/"+w[0]).scaled(128,128))
         self.timer=timeReloadThread()
         self.timer.start()
+        self.dater=allReloadThread()
+        self.dater.start()
     def effects(self):
         self.windowEffect = WindowEffect()
         #self.setStyleSheet("background:transparent")
@@ -111,16 +103,13 @@ class clockWindow(QSplashScreen,Ui_Form):
         #系统自适应特效
         self.pic=False
         if self.settings["appearance"]["mode"]=="effect":
-            if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.15063-SP0"):
+            if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.19041-SP0"):
                 self.setAttribute(Qt.WA_TranslucentBackground)
-                self.contextMenu.setAttribute(Qt.WA_TranslucentBackground)
+                self.windowEffect.setAcrylicEffect(int(self.winId()),gradientColor="FFFFFFC9")
                 self.contextMenu.setStyleSheet("""background:transparent；
                 
 
- QMenu {
-    background: transparent;
-    border: 0px;
-}
+
 
 QMenu::item {
     /* padding-right: 20px;
@@ -154,15 +143,16 @@ QMenu::separator {
                 self.windowEffect.setAcrylicEffect(int(self.winId()))
                 self.windowEffect.setAcrylicEffect(int(self.contextMenu.winId()),gradientColor="FFFFFF99")
                 self.windowEffect.setShadowEffect(int(self.winId()))
-            elif "linux" not in platform.platform().lower() and (platform.platform()=="Windows-7" and platform.platform()<"Windows-8"):
+            elif "linux" not in platform.platform().lower() and ("Windows-7" in platform.platform()):
                 self.setAttribute(Qt.WA_TranslucentBackground)
                 self.windowEffect.setAeroEffect(int(self.winId()))
                 self.windowEffect.setShadowEffect(int(self.winId()))
             else:
-                self.setWindowOpacity(0.8)
                 self.windowEffect.setShadowEffect(int(self.winId()))
         elif self.settings["appearance"]["mode"]=="pic":
             self.pic=True
+            self.windowEffect.setShadowEffect(int(self.winId()))
+        elif self.settings["appearance"]["mode"]=="pic":
             self.windowEffect.setShadowEffect(int(self.winId()))
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -189,9 +179,26 @@ class timeReloadThread(QThread):
         while True:
             window.time.setText(time.strftime('%H:%M:%S'))
             time.sleep(0.01)
-            
+class allReloadThread(QThread):
+    def __init__(self):
+        super().__init__()
+    def run(self):
+        time.sleep(0.1)
+        while True:
+            window.date.setText(time.strftime('%Y-%m-%d %a').replace("Mon","周一").replace("Thu", "周二").replace("Wed","周三").replace("Thu", "周四").replace("Fri", "周五").replace("Sat", "周六").replace("Sun","周日"))
+            a=datetime.date.today()
+            dt_date = datetime.datetime(a.year,a.month,a.day)
+            date = lunar_date.from_datetime(dt_date).chinese()
+            window.chinese.setText(date[:-4]+spider.holiday())
+            window.famous.setWordWrap(True)
+            window.famous.setText(spider.famous())
+            w=spider.weather()
+            window.weather.setText(w[0]+" "+w[1])
+            window.weatherIcon.setPixmap(QPixmap("weathers/"+w[0]))
+            time.sleep(600)
 if __name__=="__main__":
     app = QApplication(sys.argv)
     window=clockWindow()
     window.show()
+    window.activateWindow()
     sys.exit(app.exec_())
