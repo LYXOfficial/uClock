@@ -103,7 +103,7 @@ class clockWindow(QSplashScreen,Ui_Form):
         #系统自适应特效
         self.pic=False
         if self.settings["appearance"]["mode"]=="effect":
-            if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.19041-SP0"):
+            if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.19041-SP0") and (not "Windows-7" in platform.platform() and not "Windows-8" in platform.platform()):
                 self.setAttribute(Qt.WA_TranslucentBackground)
                 self.windowEffect.setAcrylicEffect(int(self.winId()),gradientColor="FFFFFFC9")
                 self.contextMenu.setStyleSheet("""background:transparent；

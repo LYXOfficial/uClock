@@ -135,7 +135,12 @@ class Settinger(FramelessWindow,Ui_setting):
             self.lineEdit_2.setEnabled(True)
             self.dateEdit.setEnabled(True)
         if self.setting["appearance"]["mode"]=="effect":
-            if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0"):
+            if "linux" not in platform.platform().lower() and ("Windows-7" in platform.platform() or "Windows-8" in platform.platform() or "Windows-Vista" in platform.platform()):
+                self.setAttribute(Qt.WA_TranslucentBackground)
+                self.windowEffect.setAeroEffect(int(self.winId()))
+                self.setStyleSheet(open("effects/settingWin10.qss",encoding="utf-8").read())
+                self.windowEffect.addShadowEffect(int(self.winId()))
+            elif "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0"):
                 self.setAttribute(Qt.WA_TranslucentBackground)
                 self.windowEffect.setMicaEffect(int(self.winId()))
                 self.setStyleSheet(open("effects/settingWin11.qss",encoding="utf-8").read())
@@ -144,11 +149,6 @@ class Settinger(FramelessWindow,Ui_setting):
                 self.setAttribute(Qt.WA_TranslucentBackground)
                 self.windowEffect.setAcrylicEffect(int(self.winId()),gradientColor="FFFFFFC9")
                 self.setStyleSheet(open("effects/settingWin10.qss",encoding="utf-8").read())
-            elif "linux" not in platform.platform().lower() and ("Windows-7" in platform.platform() or "Windows-Vista" in platform.platform()):
-                self.setAttribute(Qt.WA_TranslucentBackground)
-                self.windowEffect.setAeroEffect(int(self.winId()))
-                self.setStyleSheet(open("effects/settingWin10.qss",encoding="utf-8").read())
-                self.windowEffect.addShadowEffect(int(self.winId()))
             elif "linux" not in platform.platform().lower() and ("Windows-8" in platform.platform()):
                 self.setStyleSheet(open("effects/settingWin10.qss",encoding="utf-8").read())
                 self.windowEffect.addShadowEffect(int(self.winId()))
