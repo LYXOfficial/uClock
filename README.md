@@ -73,7 +73,7 @@ pythonw uclock.py
 
 ![1655694869434](image/README/1655694869434.png)![1655694874065](image/README/1655694874065.png)![1655694877479](image/README/1655694877479.png)![1655694881994](image/README/1655694881994.png)
 
-### changeLog
+### ChangeLog
 
 1.0(2022/5/28)
     1. 不用说，创建程序
