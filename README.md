@@ -1,3 +1,4 @@
+
 # uClock
 
 <center><img src="effects\pics\uclock.png"></center>
@@ -20,8 +21,9 @@
 4. 如果没有勾选“不测试网络”，无网络提醒后每次界面更新会产生重影
 5. 设置点得太快会鬼畜（doge）
 6. 部分城市无天气
-7. ![1655694084699](image/README/1655694084699.png)![1655694088479](image/README/1655694088479.png)![1655694091665](image/README/1655694091665.png)
-8. 设置关了主窗口也关
+7. release 1.1某些地方会莫名变windows经典风格，过几天发布修正release
+8. ![1655694084699](image/README/1655694084699.png)![1655694088479](image/README/1655694088479.png)![1655694091665](image/README/1655694091665.png)
+9. 设置关了主窗口也关
 
 ### 快速开始
 
@@ -86,3 +88,4 @@ pythonw uclock.py
     4. 修复诸多bug
     5. release可以在大部分Windows7+系统里面运行（作者暂时没有适配Linux，可能会出bug
     6. 天气图标修改
+    7 .换用优秀的nuitka打包，更稳定（而且不会像~~*KBY*~~说的那样蓝屏了），字体不会变宋
