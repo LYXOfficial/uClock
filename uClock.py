@@ -188,7 +188,7 @@ class allReloadThread(QThread):
     def run(self):
         time.sleep(0.1)
         while True:
-            window.date.setText(time.strftime('%Y-%m-%d %a').replace("Mon","周一").replace("Thu", "周二").replace("Wed","周三").replace("Thu", "周四").replace("Fri", "周五").replace("Sat", "周六").replace("Sun","周日"))
+            window.date.setText(time.strftime('%Y-%m-%d %a').replace("Mon","周一").replace("Tue", "周二").replace("Wed","周三").replace("Thu", "周四").replace("Fri", "周五").replace("Sat", "周六").replace("Sun","周日"))
             a=datetime.date.today()
             dt_date = datetime.datetime(a.year,a.month,a.day)
             date = lunar_date.from_datetime(dt_date).chinese()
