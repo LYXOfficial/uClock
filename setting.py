@@ -5,7 +5,7 @@ import sys,time,platform
 from effects.windowEffecter import WindowEffect
 from effects.QFramelessWindow import *
 from zhdate import ZhDate as lunar_date
-if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0"):
+if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0") and not ("Windows-7" in platform.platform() or "Windows-8" in platform.platform() or "Windows-Vista" in platform.platform()):
     from Ui_settingWin11 import Ui_setting
 else:
     from Ui_settingWin10 import Ui_setting
