@@ -1,8 +1,0 @@
-1.0
-    1.不用说，创建程序
-1.1
-    1.设置适配Fluent Design
-    2.适配Win11 Mica
-    3.细节优化（比如圆角）
-    4.修复诸多bug
-    5.release可以在大部分Windows7+系统里面运行（作者暂时没有适配Linux，可能会出bug

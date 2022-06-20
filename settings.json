@@ -1,7 +1,7 @@
 {
     "appearance":{
         "mode":"effect",
-        "pic":""
+        "pic":"E:/011.jpg"
     },
     "countdown":{
         "countdownDay":"2022-06-17",
@@ -13,7 +13,7 @@
     },
     "sidebar":{
         "html":"",
-        "type":"calendar",
+        "type":"clock",
         "zoom":0.5
     }
 }

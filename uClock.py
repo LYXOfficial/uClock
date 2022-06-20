@@ -151,7 +151,7 @@ QMenu::separator {
         elif self.settings["appearance"]["mode"]=="pic":
             self.pic=True
             self.windowEffect.setShadowEffect(int(self.winId()))
-        elif self.settings["appearance"]["mode"]=="pic":
+        elif self.settings["appearance"]["mode"]=="no":
             self.windowEffect.setShadowEffect(int(self.winId()))
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -174,7 +174,7 @@ class timeReloadThread(QThread):
     def __init__(self):
         super().__init__()
     def run(self):
-        time.sleep(0.1)
+        time.sleep(0.3)
         while True:
             window.time.setText(time.strftime('%H:%M:%S'))
             time.sleep(0.01)
@@ -196,6 +196,7 @@ class allReloadThread(QThread):
             window.weatherIcon.setPixmap(QPixmap("weathers/"+w[0]))
             time.sleep(600)
 def main():
+    global app,window 
     app = QApplication(sys.argv)
     window=clockWindow()
     window.show()

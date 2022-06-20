@@ -220,7 +220,7 @@ class logShower(QDialog,Ui_Dialog):
         self.setup()
     def setup(self):
         self.setWindowFlags(Qt.SubWindow)
-        self.textBrowser.setText(open("versionLog.txt",encoding="utf-8").read())
+        self.textBrowser.setText(open("changeLog.txt",encoding="utf-8").read())
         if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0"):
             self.setWindowTitle(" ")
             self.setStyleSheet(open("effects/logWin11.qss",encoding="utf-8").read())
