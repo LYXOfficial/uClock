@@ -41,7 +41,7 @@
 5. 这样肯定不能直接运行，所以输入这串神奇的指令
 
    ```bash
-   pip install -i https://pypi.doubanio.com/simple/ PyQt5 zhdate pywin32 requests pillow
+   pip install -i https://pypi.doubanio.com/simple/ PyQt5 pyqtwebengine zhdate pywin32 requests pillow
    ```
 
    把依赖库安装下来，就能用Python命令行运行了
