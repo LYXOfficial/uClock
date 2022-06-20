@@ -1,4 +1,5 @@
 import requests,time,json,random,geoip2.database,datetime
+from PIL import *
 import socket
 def getHostIp():
     ip=requests.get("https://api.ipify.org/").text
@@ -203,6 +204,8 @@ def famous():
     return famouses.split("\n\n")[random.randint(0,75)][3:]
 def test():
     requests.get("https://www.baidu.com")
+def getpjfs(link):
+
 def weather():
     try:
         reader = geoip2.database.Reader('./GeoLite2-City.mmdb')

@@ -151,6 +151,7 @@ QMenu::separator {
         elif self.settings["appearance"]["mode"]=="pic":
             self.pic=True
             self.windowEffect.setShadowEffect(int(self.winId()))
+            self.setStyleSheet("color:"+spider.getpjfs(self.settings["appearance"]["pic"]))
         elif self.settings["appearance"]["mode"]=="no":
             self.windowEffect.setShadowEffect(int(self.winId()))
     def mousePressEvent(self, event):
