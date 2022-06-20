@@ -115,7 +115,6 @@ QMenu::item {
     /* padding-right: 20px;
     padding-left: 13px; */
     padding: 7px 20px 7px 13px;
-    background-color: transparent;
 }
 
 QMenu::item:selected {
@@ -196,9 +195,11 @@ class allReloadThread(QThread):
             window.weather.setText(w[0]+" "+w[1])
             window.weatherIcon.setPixmap(QPixmap("weathers/"+w[0]))
             time.sleep(600)
-if __name__=="__main__":
+def main():
     app = QApplication(sys.argv)
     window=clockWindow()
     window.show()
     window.activateWindow()
     sys.exit(app.exec_())
+if __name__=="__main__":
+    main()

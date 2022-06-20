@@ -9,6 +9,7 @@ if "linux" not in platform.platform().lower() and (platform.platform()>="Windows
     from Ui_settingWin11 import Ui_setting
 else:
     from Ui_settingWin10 import Ui_setting
+from Ui_log import Ui_Dialog
 import spider
 import datetime
 import json
@@ -32,12 +33,43 @@ class Settinger(FramelessWindow,Ui_setting):
             # self.move(event.globalPos() - self.dragPosition)
             # event.accept()
             self.windowEffect.moveWindow(int(self.winId()))
+    def paintEvent(self,event):
+        self.pa.begin(self)
+        p=QPen()
+        p.setStyle(Qt.SolidLine)
+        p.setColor(QColor("#66CCFF"))
+        p.setWidth(3)
+        self.pa.setPen(p)
+        self.pa.drawLine(self.menu.x()+4,(self.menu.y()+(self.menu.height()-20)//4*self.menu.row(self.menu.currentItem()))+32,self.menu.x()+4,(self.menu.y()+(self.menu.height()-20)//4*self.menu.row(self.menu.currentItem()))+16)
+        self.update()
+        self.pa.end()
+    #右上角鼠标点不了，这个也不行
+    # def mouseReleaseEvent(self,event):
+    #     if event.button()==Qt.LeftButton:
+    #         desktop = QApplication.desktop()
+    #         screenRect = desktop.screenGeometry()
+    #         height = screenRect.height()
+    #         width = screenRect.width()
+    #         print(event.pos())
+    #         if event.pos().x()==width and event.pos().y()==height():
+    #             self.close()
     def onItem(self,s):
-        for y in range(3000,0,-1):
+        if self.setting["appearance"]["mode"]=="effect":
+            if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0"):
+                self.view.currentWidget().setAttribute(Qt.WA_TranslucentBackground)
+        self.view.currentWidget().setAutoFillBackground(True)
+        for y in range(1000,0,-5):
+            op = QGraphicsOpacityEffect()
+            op.setOpacity(1-y/1000)
+            self.view.currentWidget().setGraphicsEffect(op)
             QApplication.processEvents()
             self.view.currentWidget().setGeometry(0,y//10,self.view.currentWidget().width(),self.view.currentWidget().height())
         self.view.setCurrentIndex(s)
+    def showLog(self):
+        self.l.show()
     def setup(self):
+        self.pa=QPainter()
+        self.l=logShower()
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.toolButton_6.hide()
         # self.setWindowFlags(Qt.SplashScreen)
@@ -69,6 +101,22 @@ class Settinger(FramelessWindow,Ui_setting):
         self.lineEdit.setText(self.setting["sidebar"]["html"])
         self.doubleSpinBox.setValue(self.setting["sidebar"]["zoom"])
         self.checkBox_3.setChecked(self.setting["network"]["doNotTraceback"])
+        self.pushButton.clicked.connect(self.showLog)
+        self.src=QPixmap("effects/pics/avatar.jpg").scaled(64,64)
+        radius = min(self.src.width(),self.src.height())
+        self.size=QSize(self.src.width(), self.src.height())
+        size2=QSize(radius * 2, radius * 2)
+        self.mask=QBitmap(self.size)
+        self.painter=QPainter(self.mask)
+        self.painter.setRenderHints(QPainter.SmoothPixmapTransform)
+        self.painter.setRenderHints(QPainter.Antialiasing)
+        self.painter.setRenderHints(QPainter.TextAntialiasing)
+        self.painter.translate(0, 0)
+        self.painter.fillRect(0, 0, self.size.width(), self.size.height(), Qt.white)
+        self.painter.setBrush(QColor(0, 0, 0))
+        self.painter.drawEllipse(0, 0, self.size.width(), self.size.height())
+        self.src.setMask(self.mask)
+        self.label_36.setPixmap(self.src)
         if self.setting["sidebar"]["type"]=="clock":
             self.comboBox.setCurrentIndex(0)
         elif self.setting["sidebar"]["type"]=="calendar":
@@ -98,7 +146,7 @@ class Settinger(FramelessWindow,Ui_setting):
                 self.setStyleSheet(open("effects/settingWin10.qss",encoding="utf-8").read())
             elif "linux" not in platform.platform().lower() and ("Windows-7" in platform.platform() or "Windows-Vista" in platform.platform()):
                 self.setAttribute(Qt.WA_TranslucentBackground)
-                self.windowEffect.setAeroEffect(int(self.winId()),gradientColor="FFFFFFC9")
+                self.windowEffect.setAeroEffect(int(self.winId()))
                 self.setStyleSheet(open("effects/settingWin10.qss",encoding="utf-8").read())
                 self.windowEffect.addShadowEffect(int(self.winId()))
             elif "linux" not in platform.platform().lower() and ("Windows-8" in platform.platform()):
@@ -164,6 +212,21 @@ class Settinger(FramelessWindow,Ui_setting):
         self.setting["countdown"]["countdownDay"]=self.dateEdit.dateTime().toString("yyyy-MM-dd")
     def setCountdownThing(self):
         self.setting["countdown"]["countdownThing"]=self.lineEdit_2.text()
+class logShower(QDialog,Ui_Dialog):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        self.retranslateUi(self)
+        self.setup()
+    def setup(self):
+        self.setWindowFlags(Qt.SubWindow)
+        self.textBrowser.setText(open("versionLog.txt",encoding="utf-8").read())
+        if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0"):
+            self.setWindowTitle(" ")
+            self.setStyleSheet(open("effects/logWin11.qss",encoding="utf-8").read())
+        else:
+            self.setWindowTitle("更新日志")
+            self.setStyleSheet(open("effects/logWin10.qss",encoding="utf-8").read())
 if __name__=="__main__":
     app = QApplication(sys.argv)
     settinged=Settinger()

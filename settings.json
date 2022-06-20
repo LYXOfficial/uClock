@@ -13,7 +13,7 @@
     },
     "sidebar":{
         "html":"",
-        "type":"self",
+        "type":"calendar",
         "zoom":0.5
     }
 }

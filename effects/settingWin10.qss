@@ -14,9 +14,9 @@
     background-color: #e2e2e2;
 }
 
-#menu::item:selected {
+/* #menu::item:selected {
     border-left: 2px solid #66ccff;
-}
+} */
 
 QWidget{
     font:"Microsoft YaHei"

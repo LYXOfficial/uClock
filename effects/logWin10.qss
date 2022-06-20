@@ -1,0 +1,55 @@
+QDialog{
+    background-color: #0078d4;
+}
+QLabel{
+    color:white;
+}
+QGroupBox{
+    border:none;
+}
+QPushButton {
+    color: #FFFFFF;
+    background-color: #0078d4;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-width: 3px;
+    border-color: #FFFFFF;
+    border-style: solid;
+}
+QPushButton:hover{
+    background-color: rgb(107, 169, 240);
+}
+QPushButton:pressed{
+    background-color: rgb(255, 255, 255);
+    color:#0078d4;
+}
+QScrollBar {
+    background: transparent;
+    width: 5px;
+    margin-top: 40px;
+    margin-bottom: 133px;
+    padding-right: 2px;
+}
+
+QScrollBar::sub-line {
+    background: transparent;
+}
+
+/*隐藏下箭头*/
+QScrollBar::add-line {
+    background: transparent;
+}
+
+QScrollBar::handle {
+    background: rgb(122, 122, 122);
+    border: 2px solid rgb(128, 128, 128);
+    border-radius: 1px;
+    min-height: 40px;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+    background: none;
+}

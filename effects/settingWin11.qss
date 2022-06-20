@@ -14,15 +14,17 @@ QListWidget::item {
     border-radius: 6px;
 }
 QListWidget::item:hover {
-    background-color: #e2e2e2;
+    background-color: rgb(200,200,200);
 }
-
+/* 
 QListWidget::item:selected {
     border-left: 2px solid #66ccff;
+} */
+QListWidget::item:pressed{
+    color: rgb(200,200,200)
 }
 #QWidget{
     font:"Microsoft YaHei";
-    margin-left: 10px;
 }
 #label_9{
     margin-top: 10px;
@@ -114,11 +116,11 @@ QPushButton {
 }
 
 QPushButton:pressed:hover {
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(220, 220, 220);
 }
 
 QPushButton:hover {
-    background-color: rgb(220, 220, 220);
+    background-color: rgb(240, 240, 240);
 }
 QToolButton {
     font-size: 14px;
@@ -130,11 +132,11 @@ QToolButton {
 }
 
 QToolButton:pressed:hover {
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(220, 220, 220);
 }
 
 QToolButton:hover {
-    background-color: rgb(220, 220, 220);
+    background-color: rgb(240, 240, 240);
 }
 /* 输入框 */
 QLineEdit {
@@ -196,7 +198,6 @@ QDoubleSpinBox::down-button {
 }
 QComboBox:hover {
     background-color: rgb(240, 240, 240);
-    border: 1px solid rgb(120, 120, 120);
     height: 18px;
 }
 QComboBox {
