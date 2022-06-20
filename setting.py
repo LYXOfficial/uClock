@@ -58,7 +58,7 @@ class Settinger(FramelessWindow,Ui_setting):
             if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0"):
                 self.view.currentWidget().setAttribute(Qt.WA_TranslucentBackground)
         self.view.currentWidget().setAutoFillBackground(True)
-        for y in range(1000,0,-5):
+        for y in range(1000,0,-10):
             op = QGraphicsOpacityEffect()
             op.setOpacity(1-y/1000)
             self.view.currentWidget().setGraphicsEffect(op)
