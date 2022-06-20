@@ -1,7 +1,7 @@
 {
     "appearance":{
-        "mode":"effect",
-        "pic":"E:/011.jpg"
+        "mode":"pic",
+        "pic":"E:/\u9879\u76ee/uClock/image/README/1655693841511.png"
     },
     "countdown":{
         "countdownDay":"2022-06-17",

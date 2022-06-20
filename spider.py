@@ -1,5 +1,5 @@
 import requests,time,json,random,geoip2.database,datetime
-from PIL import *
+from PIL import Image,ImageDraw
 import socket
 def getHostIp():
     ip=requests.get("https://api.ipify.org/").text
@@ -205,7 +205,21 @@ def famous():
 def test():
     requests.get("https://www.baidu.com")
 def getpjfs(link):
-
+    img = Image.open(link)
+    w,h=img.size 
+    r,g,b=0,0,0
+    img = img.convert('RGB')
+    for x in range(w):
+        for y in range(h):
+            r1,g1,b1=img.getpixel((x,y))
+            r+=r1
+            g+=g1
+            b+=b1
+    if (r//(w*h)+g//(w*h)+b//(w*h))/3>=200:
+        return "#000000"
+    else:
+        return "#FFFFFF"
+    
 def weather():
     try:
         reader = geoip2.database.Reader('./GeoLite2-City.mmdb')
@@ -226,3 +240,5 @@ def weather():
         return wea,du
     except:
         return "未知","0~0℃"
+if __name__=="__main__":
+    print(getpjfs("image/README/1655690951385.png"))
