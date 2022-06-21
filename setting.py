@@ -79,8 +79,8 @@ class Settinger(FramelessWindow,Ui_setting):
         self.l.show()
     def setup(self):
         QApplication.setStyle(QStyleFactory.keys()[1])
-        self.setWindowFlags(Qt.FramelessWindowHint |
-                Qt.WindowMinMaxButtonsHint)
+        # self.setWindowFlags(Qt.FramelessWindowHint |
+        #         Qt.WindowMinMaxButtonsHint)
         self.pa=QPainter()
         self.l=logShower()
         self.setWindowFlags(Qt.FramelessWindowHint)
