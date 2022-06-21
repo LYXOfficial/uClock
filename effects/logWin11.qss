@@ -48,3 +48,8 @@ QScrollBar::add-page:vertical,
 QScrollBar::sub-page:vertical {
     background: none;
 }
+QTextBrowser{
+    border-width: 0.5px;
+    border-color: #e2e2e2;
+    border-style: solid;
+}

@@ -1,4 +1,3 @@
-
 # uClock
 
 <center><img src="effects\pics\uclock.png"></center>
@@ -76,6 +75,11 @@ pythonw uclock.py
 ![1655694853311](image/README/1655694853311.png)
 
 ![1655694869434](image/README/1655694869434.png)![1655694874065](image/README/1655694874065.png)![1655694877479](image/README/1655694877479.png)![1655694881994](image/README/1655694881994.png)
+
+### 注意事项
+
+1. 如果显示为宋体，请安装PingFang15和PingFang0字体
+2. 因为win10(11已修复)的*~~bug~~*特性的原因，开亚克力的话拖动窗口和拉伸窗口会卡顿卡顿，可以在外观设置里取消勾选显示窗口内容或者关掉亚克力
 
 ### ChangeLog
 

@@ -1,3 +1,4 @@
+VERSION="1.1.22621_fixed"
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -5,6 +6,14 @@ import sys,time,platform
 from effects.windowEffecter import WindowEffect
 from effects.QFramelessWindow import *
 from zhdate import ZhDate as lunar_date
+# 其他系统ui测试
+# class platform:#Win10
+#     def platform():
+#         return "Windows-10-10.0.19041-SP0"
+# class platform:#Win7
+#     def platform():
+#         return "Windows-7-10.0.7601-SP1"
+#否则就是Win11
 if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0") and not ("Windows-7" in platform.platform() or "Windows-8" in platform.platform() or "Windows-Vista" in platform.platform()):
     from Ui_settingWin11 import Ui_setting
 else:
@@ -34,15 +43,16 @@ class Settinger(FramelessWindow,Ui_setting):
             # event.accept()
             self.windowEffect.moveWindow(int(self.winId()))
     def paintEvent(self,event):
-        self.pa.begin(self)
-        p=QPen()
-        p.setStyle(Qt.SolidLine)
-        p.setColor(QColor("#66CCFF"))
-        p.setWidth(3)
-        self.pa.setPen(p)
-        self.pa.drawLine(self.menu.x()+4,(self.menu.y()+(self.menu.height()-20)//4*self.menu.row(self.menu.currentItem()))+32,self.menu.x()+4,(self.menu.y()+(self.menu.height()-20)//4*self.menu.row(self.menu.currentItem()))+16)
-        self.update()
-        self.pa.end()
+        if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0") and not ("Windows-7" in platform.platform() or "Windows-8" in platform.platform() or "Windows-Vista" in platform.platform()):
+            self.pa.begin(self)
+            p=QPen()
+            p.setStyle(Qt.SolidLine)
+            p.setColor(QColor("#66CCFF"))
+            p.setWidth(3)
+            self.pa.setPen(p)
+            self.pa.drawLine(self.menu.x()+4,(self.menu.y()+(self.menu.height()-25)//4*self.menu.row(self.menu.currentItem()))+32,self.menu.x()+4,(self.menu.y()+(self.menu.height()-25)//4*self.menu.row(self.menu.currentItem()))+16)
+            self.update()
+            self.pa.end()
     #右上角鼠标点不了，这个也不行
     # def mouseReleaseEvent(self,event):
     #     if event.button()==Qt.LeftButton:
@@ -55,9 +65,9 @@ class Settinger(FramelessWindow,Ui_setting):
     #             self.close()
     def onItem(self,s):
         if self.setting["appearance"]["mode"]=="effect":
-            if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0"):
+            if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0") and not ("Windows-7" in platform.platform() or "Windows-8" in platform.platform() or "Windows-Vista" in platform.platform()):
                 self.view.currentWidget().setAttribute(Qt.WA_TranslucentBackground)
-        self.view.currentWidget().setAutoFillBackground(True)
+                self.view.currentWidget().setAutoFillBackground(True)
         for y in range(1000,0,-10):
             op = QGraphicsOpacityEffect()
             op.setOpacity(1-y/1000)
@@ -68,6 +78,9 @@ class Settinger(FramelessWindow,Ui_setting):
     def showLog(self):
         self.l.show()
     def setup(self):
+        QApplication.setStyle(QStyleFactory.keys()[1])
+        self.setWindowFlags(Qt.FramelessWindowHint |
+                Qt.WindowMinMaxButtonsHint)
         self.pa=QPainter()
         self.l=logShower()
         self.setWindowFlags(Qt.FramelessWindowHint)
@@ -78,7 +91,7 @@ class Settinger(FramelessWindow,Ui_setting):
         with open("settings.json","r",encoding="utf-8") as f:
             self.setting=json.load(f)
         self.label_18.setPixmap(QPixmap("effects/pics/uclock.png").scaled(QSize(128,128)))
-        self.label_22.setText(self.label_22.text().format("1.1"))
+        self.label_22.setText(self.label_22.text().format(VERSION))
         self.dateEdit.setMinimumDate(datetime.datetime.now())
         self.menu.setFrameShape(QListWidget.NoFrame)
         self.checkBox.clicked.connect(lambda:self.setCountdown(self.checkBox.isChecked()))

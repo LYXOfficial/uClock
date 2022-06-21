@@ -288,3 +288,57 @@ QGroupBox{
     border-style: solid;
     height: 60px;
 }
+QRadioButton {
+    spacing: 10px;
+    color: black;
+    background-color: transparent;
+}
+
+QRadioButton::indicator {
+    background-color: transparent;
+}
+
+QRadioButton::indicator:unchecked {
+    height: 16px;
+    width: 16px;
+    border: 2px solid rgb(154, 154, 154);
+    border-radius: 10px;
+}
+
+
+QRadioButton::indicator:checked {
+    height: 8px;
+    width: 8px;
+    border: 6px solid rgb(0, 153, 188);
+    border-radius: 10px;
+}
+
+QRadioButton::indicator:unchecked:hover {
+    height: 16px;
+    width: 16px;
+    border: 2px solid rgb(120, 120, 120);
+    border-radius: 10px;
+}
+
+QRadioButton::indicator:checked:hover {
+    height: 8px;
+    width: 8px;
+    border: 6px solid rgb(72, 210, 242);
+    border-radius: 10px;
+}
+
+QRadioButton::indicator:unchecked:pressed {
+    height: 16px;
+    width: 16px;
+    background-color: rgb(153, 153, 153);
+    border: 2px solid rgb(84, 84, 84);
+    border-radius: 10px;
+
+}
+
+QRadioButton::indicator:checked:pressed {
+    height: 8px;
+    width: 8px;
+    border: 6px solid rgb(0, 107, 131);
+    border-radius: 10px;
+}

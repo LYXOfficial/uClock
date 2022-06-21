@@ -4,6 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWebEngineWidgets import *
 from Ui_clock import *
 import sys,time
+from effects.QFramelessWindow import *
 from effects.windowEffecter import WindowEffect
 from zhdate import ZhDate as lunar_date
 from Ui_setting import Ui_setting
@@ -12,7 +13,7 @@ import spider
 import datetime
 import platform
 import json
-class clockWindow(QSplashScreen,Ui_Form):
+class clockWindow(NoIconFramelessWindow,Ui_Form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -46,7 +47,7 @@ class clockWindow(QSplashScreen,Ui_Form):
         self.contextMenu = QMenu(self)
         self.closeer = self.contextMenu.addAction('关闭')
         self.settinger = self.contextMenu.addAction('设置') 
-        self.piner = self.contextMenu.addAction('置顶(有bug）')
+        self.piner = self.contextMenu.addAction('置顶')
         self.piner.setCheckable(True)
         self.closeer.triggered.connect(self.close)
         self.settinger.triggered.connect(self.setting)
@@ -80,14 +81,14 @@ class clockWindow(QSplashScreen,Ui_Form):
         self.settinged.setWindowFlags(Qt.WindowCloseButtonHint)
     def setting(self):
         self.settinged.show()
+    #置顶bug终于TM修复了！！！！！！！！！！！！！！！
     def pin(self):
-        if not self.isActiveWindow():
-            self.activateWindow()
-            self.showNormal()
+        if not (self.windowFlags() | Qt.WindowStaysOnTopHint) == self.windowFlags():
+            self.setWindowFlags(Qt.WindowStaysOnTopHint|Qt.SplashScreen)
+            self.show()
         else:
-            self.inactivateWindow()
-    def inactivateWindow(self):
-        pass
+            self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
+            self.show()
     def dates(self):
         self.timer=timeReloadThread()
         self.timer.start()
@@ -157,15 +158,19 @@ QMenu::separator {
                 self.pic=False
         elif self.settings["appearance"]["mode"]=="no":
             self.windowEffect.setShadowEffect(int(self.winId()))
-    def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            self.dragPosition = event.globalPos() - self.frameGeometry().topLeft()
-            QApplication.postEvent(self, QEvent(174))
-            event.accept()
-    def mouseMoveEvent(self, event):
-        if event.buttons() == Qt.LeftButton:
-            self.move(event.globalPos() - self.dragPosition)
-            event.accept()
+    #     if event.button()==Qt.LeftButton:
+    #         self.m_flag=True
+    #         self.m_Position=event.globalPos()-self.pos()
+    #         event.accept()
+    #         self.setCursor(QCursor(Qt.ClosedHandCursor))
+
+    # def mouseMoveEvent(self, QMouseEvent):
+    #     if Qt.LeftButton and self.m_flag:  
+    #         self.move(QMouseEvent.globalPos()-self.m_Position)
+    #         QMouseEvent.accept()
+    # def mouseReleaseEvent(self, QMouseEvent):
+    #     self.m_flag=False
+    #     self.setCursor(QCursor(Qt.ArrowCursor))
     def closeEvent(self,event):
         self.timer.exit()
         sys.exit(0)
