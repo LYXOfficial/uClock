@@ -97,6 +97,7 @@ pythonw uclock.py
 4. Vista和Win7SP0可能无法运行
 5. 如果说缺少这个那个的dll啊，这个系统错误，那个exe报错啥的别犹豫，装VC2015可能就好了
 6. Linux用户非要跑可以自己尝试改代码
+7. 如果出现设置无法保存的问题，可以将主程序（uclock.exe）设置为以管理员身份运行
 
 ### ChangeLog
 
