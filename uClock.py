@@ -55,6 +55,10 @@ class clockWindow(NoIconFramelessWindow,Ui_Form):
         # self.view=QWebEngineView()
         self.view.page().setBackgroundColor(Qt.transparent)
         self.view.setAttribute(Qt.WA_TranslucentBackground)
+        self.tray = QSystemTrayIcon()
+        self.tray.setIcon(QIcon("effects/pics/uclock.ico"))
+        self.tray.setContextMenu(self.contextMenu)
+        self.tray.show()
         if self.settings["sidebar"]["type"]=="clock":
             #时钟
             self.view.setHtml(open("clock.html",encoding="utf-8").read())
@@ -141,7 +145,6 @@ QMenu::separator {
 
                 """)
                 self.windowEffect.setAcrylicEffect(int(self.winId()))
-                self.windowEffect.setAcrylicEffect(int(self.contextMenu.winId()),gradientColor="FFFFFF99")
                 self.windowEffect.setShadowEffect(int(self.winId()))
             elif "linux" not in platform.platform().lower() and ("Windows-7" in platform.platform()):
                 self.setAttribute(Qt.WA_TranslucentBackground)
@@ -202,7 +205,7 @@ class allReloadThread(QThread):
             window.famous.setText(spider.famous())
             w=spider.weather()
             window.weather.setText(w[0]+" "+w[1])
-            window.weatherIcon.setPixmap(QPixmap("weathers/"+w[0]))
+            window.weatherIcon.setPixmap(QPixmap("weathers/"+w[0].split(" ")[1]))
             time.sleep(600)
 def main():
     global app,window 

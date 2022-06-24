@@ -225,7 +225,9 @@ def weather():
         reader = geoip2.database.Reader('./GeoLite2-City.mmdb')
         ip=getHostIp()
         response = reader.city(ip)
-        city=response.city.names["zh-CN"]
+        city=response.subdivisions.most_specific.names["zh-CN"]
+        if not ("重庆" in city or "上海" in city or "天津" in city or "北京" in city):
+            city=response.city.names["zh-CN"]
         url=f"https://api.seniverse.com/v3/weather/daily.json?key=S7fyLm4jfkPpS7eDD&location={city}&language=zh-Hans&unit=c&start=0&days=5"
         content =requests.get(url)
         content.encoding="utf-8"
@@ -237,8 +239,8 @@ def weather():
         else:
             wea=res["text_night"]
         du=res["low"]+"~"+res["high"]+"℃"
-        return wea,du
+        return city+" "+wea,du
     except:
-        return "未知","0~0℃"
+        return "未知城市 未知","0~0℃"
 if __name__=="__main__":
     print(getpjfs("image/README/1655690951385.png"))
