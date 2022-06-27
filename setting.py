@@ -1,4 +1,4 @@
-VERSION="1.1.22621_fixed"
+VERSION="1.2"
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
