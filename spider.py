@@ -243,4 +243,4 @@ def weather():
     except:
         return "未知城市 未知","0~0℃"
 if __name__=="__main__":
-    print(getpjfs("image/README/1655690951385.png"))
+    weather()

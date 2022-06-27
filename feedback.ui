@@ -61,52 +61,18 @@
    <item row="2" column="0" colspan="2">
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>选择反馈方式</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QRadioButton" name="radioButton">
-         <property name="text">
-          <string>邮箱</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="radioButton_2">
-         <property name="text">
-          <string>Github Issue</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>登录Github</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
         <string>反馈内容：</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QTextEdit" name="textEdit"/>
+     <item row="0" column="1">
+      <widget class="QTextEdit" name="textEdit">
+       <property name="placeholderText">
+        <string>作者建议你去github issue上提交呢...</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -120,38 +86,5 @@
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>radioButton_2</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>pushButton</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>234</x>
-     <y>44</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>323</x>
-     <y>55</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioButton</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>pushButton</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>125</x>
-     <y>45</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>341</x>
-     <y>43</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
