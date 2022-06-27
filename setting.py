@@ -26,6 +26,7 @@ from ctypes.wintypes import *
 from ctypes import *
 from win32.lib import win32con
 from win32 import win32gui,win32api
+import feedback
 class Settinger(FramelessWindow,Ui_setting):
     BORDER_WIDTH = 5
     def __init__(self):
@@ -77,8 +78,9 @@ class Settinger(FramelessWindow,Ui_setting):
         self.view.setCurrentIndex(s)
     def showLog(self):
         self.l.show()
+    def f(self):
+        feedback.start("")
     def setup(self):
-        QApplication.setStyle(QStyleFactory.keys()[1])
         # self.setWindowFlags(Qt.FramelessWindowHint |
         #         Qt.WindowMinMaxButtonsHint)
         self.pa=QPainter()
@@ -93,6 +95,7 @@ class Settinger(FramelessWindow,Ui_setting):
         self.label_18.setPixmap(QPixmap("effects/pics/uclock.png").scaled(QSize(128,128)))
         self.label_22.setText(self.label_22.text().format(VERSION))
         self.dateEdit.setMinimumDate(datetime.datetime.now())
+        self.feed.clicked.connect(self.f)
         self.menu.setFrameShape(QListWidget.NoFrame)
         self.checkBox.clicked.connect(lambda:self.setCountdown(self.checkBox.isChecked()))
         self.dateEdit.dateChanged.connect(self.setCountdownDate)

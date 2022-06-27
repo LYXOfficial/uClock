@@ -16,7 +16,6 @@ import json
 import error
 import traceback
 try:
-    raise SystemError
     class clockWindow(NoIconFramelessWindow,Ui_Form):
         def __init__(self):
             super().__init__()
