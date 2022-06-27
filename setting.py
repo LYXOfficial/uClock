@@ -51,7 +51,7 @@ class Settinger(FramelessWindow,Ui_setting):
             p.setColor(QColor("#66CCFF"))
             p.setWidth(3)
             self.pa.setPen(p)
-            self.pa.drawLine(self.menu.x()+4,(self.menu.y()+(self.menu.height()-25)//4*self.menu.row(self.menu.currentItem()))+32,self.menu.x()+4,(self.menu.y()+(self.menu.height()-25)//4*self.menu.row(self.menu.currentItem()))+16)
+            self.pa.drawLine(self.menu.x()+4,(self.menu.y()+(self.menu.height()-19)//4*self.menu.row(self.menu.currentItem()))+32,self.menu.x()+4,(self.menu.y()+(self.menu.height()-19)//4*self.menu.row(self.menu.currentItem()))+16)
             self.update()
             self.pa.end()
     #右上角鼠标点不了，这个也不行
