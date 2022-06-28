@@ -65,17 +65,18 @@ class Settinger(FramelessWindow,Ui_setting):
     #         if event.pos().x()==width and event.pos().y()==height():
     #             self.close()
     def onItem(self,s):
-        if self.setting["appearance"]["mode"]=="effect":
-            if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0") and not ("Windows-7" in platform.platform() or "Windows-8" in platform.platform() or "Windows-Vista" in platform.platform()):
-                self.view.currentWidget().setAttribute(Qt.WA_TranslucentBackground)
-                self.view.currentWidget().setAutoFillBackground(True)
-        for y in range(1000,0,-10):
-            op = QGraphicsOpacityEffect()
-            op.setOpacity(1-y/1000)
-            self.view.currentWidget().setGraphicsEffect(op)
-            QApplication.processEvents()
-            self.view.currentWidget().setGeometry(0,y//10,self.view.currentWidget().width(),self.view.currentWidget().height())
-        self.view.setCurrentIndex(s)
+        if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0") and not ("Windows-7" in platform.platform() or "Windows-8" in platform.platform() or "Windows-Vista" in platform.platform()):
+            if self.setting["appearance"]["mode"]=="effect":
+                if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.22000-SP0") and not ("Windows-7" in platform.platform() or "Windows-8" in platform.platform() or "Windows-Vista" in platform.platform()):
+                    self.view.currentWidget().setAttribute(Qt.WA_TranslucentBackground)
+                    self.view.currentWidget().setAutoFillBackground(True)
+            for y in range(1000,0,-10):
+                op = QGraphicsOpacityEffect()
+                op.setOpacity(1-y/1000)
+                self.view.currentWidget().setGraphicsEffect(op)
+                QApplication.processEvents()
+                self.view.currentWidget().setGeometry(0,y//10,self.view.currentWidget().width(),self.view.currentWidget().height())
+            self.view.setCurrentIndex(s)
     def showLog(self):
         self.l.show()
     def f(self):
