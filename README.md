@@ -36,7 +36,7 @@
    git clone -b main https://github.com/lyxoficial/uclock.git
 ```
 
-3. 如果想用测试版，可以把上面的main改成dev（暂时没有分），但是可能下下来都运行不了（喜欢写一点传一点）
+3. 如果想用测试版，可以把上面的main改成dev(不稳定)
 4. 如果没有，去对应的分支下zip解压下来
 5. 这样肯定不能直接运行，所以输入这串神奇的指令
 
