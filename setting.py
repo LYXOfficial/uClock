@@ -180,6 +180,12 @@ class Settinger(FramelessWindow,Ui_setting):
             elif "linux" not in platform.platform().lower() and ("Windows-8" in platform.platform()):
                 self.setStyleSheet(open("effects/settingWin10.qss",encoding="utf-8").read())
             self.windowEffect.addShadowEffect(int(self.winId()))
+        if self.setting["appearance"]["showMode"]=="Window":
+            self.radioButton_4.setChecked(True)
+        if self.setting["appearance"]["showMode"]=="Tool":
+            self.radioButton_5.setChecked(True)
+        self.radioButton_4.clicked.connect(self.setM)
+        self.radioButton_5.clicked.connect(self.setM)
         self.windowEffect.addWindowAnimation(int(self.winId()))
     def setError(self):
         self.setting["network"]["doNotTraceback"]=self.checkBox_3.isChecked()
@@ -215,7 +221,11 @@ class Settinger(FramelessWindow,Ui_setting):
         a,_=QFileDialog.getOpenFileName(self,"选择Html","%userprofile%","网页(*.html *.htm)")
         self.lineEdit.setText(a)
         self.setting["sidebar"]["html"]=a
-
+    def setM(self):
+        if self.radioButton_4.isChecked():
+            self.setting["appearance"]["showMode"]="Window"
+        elif self.radioButton_5.isChecked():
+            self.setting["appearance"]["showMode"]="Tool"
     def setEffect(self):
         if self.radioButton.isChecked():
             self.setting["appearance"]["mode"]="effect"

@@ -8,6 +8,7 @@ from effects.QFramelessWindow import *
 from effects.windowEffecter import WindowEffect
 from zhdate import ZhDate as lunar_date
 from Ui_setting import Ui_setting
+import Ui_tool
 from setting import Settinger
 import spider
 import datetime
@@ -16,13 +17,26 @@ import json
 import error
 import traceback
 try:
-    class clockWindow(NoIconFramelessWindow,Ui_Form):
+    class Tool(NoIconFramelessWindow,Ui_tool.Ui_Form):
         def __init__(self):
             super().__init__()
             self.setupUi(self)
-            self.setGeometry(1400,100,self.width(),self.height(),)
+            self.retranslateUi(self)
             self.setup()
         def setup(self):
+            pass
+    class ClockWindow(NoIconFramelessWindow,Ui_Form):
+        def __init__(self):
+            super().__init__()
+            self.setupUi(self)
+            self.retranslateUi(self)
+            self.setup()
+        def setup(self):
+            self.desktop = QApplication.desktop()
+            self.screenRect = self.desktop.screenGeometry()
+            self.height1 = self.screenRect.height()
+            self.width1 = self.screenRect.width()
+            self.setGeometry(int(self.width1*(1400/1920)),int(self.height1*(100/1080)),self.width(),self.height())
             with open("settings.json","r",encoding="utf-8") as f:
                 self.settings=json.load(f)
             self.settinged=Settinger()
@@ -85,6 +99,10 @@ try:
             # else:
             #     self.setWindowFlags(Qt.SplashScreen)
             # # self.setWindowFlags(Qt.SplashScreen)
+            if self.settings["appearance"]["showMode"]=="Window":
+                pass
+            if self.settings["appearance"]["showMode"]=="Tool":
+                pass
             self.settinged.setWindowFlags(Qt.WindowCloseButtonHint)
         def setting(self):
             self.settinged.show()
@@ -213,7 +231,7 @@ try:
     def main():
         global app,window 
         app = QApplication(sys.argv)
-        window=clockWindow()
+        window=ClockWindow()
         window.show()
         window.activateWindow()
         sys.exit(app.exec_())

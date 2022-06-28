@@ -6,7 +6,8 @@
     },
     "appearance": {
         "mode": "effect",
-        "pic": "./"
+        "pic": "./",
+        "showMode": "Window"
     },
     "network": {
         "doNotTraceback": false
@@ -15,5 +16,8 @@
         "type": "calendar",
         "html": "./date.html",
         "zoom":0.1
+    },
+    "other":{
+        "startupOnLogin":false
     }
 }

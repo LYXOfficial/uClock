@@ -445,71 +445,25 @@
        <property name="leftMargin">
         <number>20</number>
        </property>
-       <item row="4" column="1">
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="title">
-          <string/>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_8">
-          <property name="leftMargin">
-           <number>9</number>
-          </property>
-          <item row="1" column="4" rowspan="3">
-           <widget class="QToolButton" name="toolButton_2">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>...</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QRadioButton" name="radioButton">
-            <property name="text">
-             <string>使用透明效果（Mica、亚克力或Aero）</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0" colspan="2">
-           <widget class="QRadioButton" name="radioButton_3">
-            <property name="text">
-             <string>不使用任何效果</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2" rowspan="3" colspan="2">
-           <widget class="QLineEdit" name="lineEdit_3">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="contextMenuPolicy">
-             <enum>Qt::NoContextMenu</enum>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0" colspan="2">
-           <widget class="QRadioButton" name="radioButton_2">
-            <property name="text">
-             <string>设置背景图片</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
        <item row="0" column="1">
         <widget class="QLabel" name="label_13">
          <property name="text">
           <string/>
          </property>
         </widget>
+       </item>
+       <item row="7" column="1">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item row="1" column="1">
         <widget class="QLabel" name="label_14">
@@ -521,13 +475,6 @@
          </property>
          <property name="text">
           <string>侧边栏设置</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QLabel" name="label_15">
-         <property name="text">
-          <string>注意：设置重启后生效！</string>
          </property>
         </widget>
        </item>
@@ -644,17 +591,109 @@
         </widget>
        </item>
        <item row="5" column="1">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+        <widget class="QLabel" name="label_37">
+         <property name="font">
+          <font>
+           <family>萍方粗</family>
+           <pointsize>12</pointsize>
+          </font>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
+         <property name="text">
+          <string>控件显示方式设置</string>
          </property>
-        </spacer>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLabel" name="label_15">
+         <property name="text">
+          <string>注意：设置重启后生效！</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <property name="leftMargin">
+           <number>9</number>
+          </property>
+          <item row="1" column="4" rowspan="3">
+           <widget class="QToolButton" name="toolButton_2">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QRadioButton" name="radioButton">
+            <property name="text">
+             <string>使用透明效果（Mica、亚克力或Aero）</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0" colspan="2">
+           <widget class="QRadioButton" name="radioButton_3">
+            <property name="text">
+             <string>不使用任何效果</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2" rowspan="3" colspan="2">
+           <widget class="QLineEdit" name="lineEdit_3">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="contextMenuPolicy">
+             <enum>Qt::NoContextMenu</enum>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QRadioButton" name="radioButton_2">
+            <property name="text">
+             <string>设置背景图片</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QGroupBox" name="groupBox_8">
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_14">
+          <item row="0" column="0">
+           <widget class="QRadioButton" name="radioButton_4">
+            <property name="text">
+             <string>窗口</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QRadioButton" name="radioButton_5">
+            <property name="text">
+             <string>小工具</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -901,13 +940,19 @@
           </property>
           <item row="0" column="0">
            <widget class="QLabel" name="label_30">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
-             <string>开机自启</string>
+             <string>开机自启（仅Release支持）</string>
             </property>
            </widget>
           </item>
           <item row="0" column="2">
            <widget class="SwitchButton" name="checkBox_2">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string/>
             </property>
