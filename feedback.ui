@@ -79,7 +79,10 @@
    <item row="0" column="0" colspan="2">
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Github账号：未登录</string>
+      <string>&lt;a href=&quot;https://github.com/LYXOfficial/uClock/issues&quot;&gt;去Github提交Issue&lt;/a href&gt;</string>
+     </property>
+     <property name="openExternalLinks">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

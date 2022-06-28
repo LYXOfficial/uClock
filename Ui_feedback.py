@@ -38,6 +38,7 @@ class Ui_feedbacker(object):
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.textEdit)
         self.gridLayout.addLayout(self.formLayout, 2, 0, 1, 2)
         self.label_2 = QtWidgets.QLabel(feedbacker)
+        self.label_2.setOpenExternalLinks(True)
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 0, 0, 1, 2)
 
@@ -50,4 +51,4 @@ class Ui_feedbacker(object):
         self.pushButton_2.setText(_translate("feedbacker", "发送反馈"))
         self.label_3.setText(_translate("feedbacker", "反馈内容："))
         self.textEdit.setPlaceholderText(_translate("feedbacker", "作者建议你去github issue上提交呢..."))
-        self.label_2.setText(_translate("feedbacker", "Github账号：未登录"))
+        self.label_2.setText(_translate("feedbacker", "<a href=\"https://github.com/LYXOfficial/uClock/issues\">去Github提交Issue</a href>"))
