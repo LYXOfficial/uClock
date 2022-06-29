@@ -1,0 +1,2 @@
+- name: Mirror a repository using SSH
+  uses: wearerequired/git-mirror-action@v1.2.0
