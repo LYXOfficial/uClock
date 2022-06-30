@@ -17,7 +17,7 @@
     },
     "sidebar":{
         "html":"./date.html",
-        "type":"calendar",
+        "type":"clock",
         "zoom":0.1
     }
 }
