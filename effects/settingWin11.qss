@@ -287,6 +287,7 @@ QGroupBox{
     border-color: #e2e2e2;
     border-style: solid;
     height: 60px;
+        
 }
 QRadioButton {
     spacing: 10px;

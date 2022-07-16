@@ -24,7 +24,49 @@ try:
             self.retranslateUi(self)
             self.setup()
         def setup(self):
-            pass
+            with open("settings.json","r",encoding="utf-8") as f:
+                self.settings=json.load(f)
+            self.desktop = QApplication.desktop()
+            self.screenRect = self.desktop.screenGeometry()
+            self.height1 = self.screenRect.height()
+            self.width1 = self.screenRect.width()
+            self.setGeometry(int(self.width1*(1400/1920))+200,int(self.height1*(100/1080)),self.width(),self.height())
+            self.windowEffect=WindowEffect()
+            #self.setStyleSheet("background:transparent")
+            # op=QGraphicsOpacityEffect()
+            # op.setOpacity(0)
+            # self.setGraphicsEffect(op)
+            # self.setAutoFillBackground(True)
+            #系统自适应特效
+            self.pic=False
+            if self.settings["appearance"]["mode"]=="effect":
+                if "linux" not in platform.platform().lower() and (platform.platform()>="Windows-10-10.0.19041-SP0") and (not "Windows-7" in platform.platform() and not "Windows-8" in platform.platform()):
+                    self.setAttribute(Qt.WA_TranslucentBackground)
+                    self.windowEffect.setAcrylicEffect(int(self.winId()),gradientColor="FFFFFFC9")
+                    self.windowEffect.setAcrylicEffect(int(self.winId()))
+                    self.windowEffect.setShadowEffect(int(self.winId()))
+                elif "linux" not in platform.platform().lower() and ("Windows-7" in platform.platform()):
+                    self.setAttribute(Qt.WA_TranslucentBackground)
+                    self.windowEffect.setAeroEffect(int(self.winId()))
+                    self.windowEffect.setShadowEffect(int(self.winId()))
+                else:
+                    self.windowEffect.setShadowEffect(int(self.winId()))
+            elif self.settings["appearance"]["mode"]=="pic":
+                self.pic=True
+                self.windowEffect.setShadowEffect(int(self.winId()))
+                try:
+                    self.setStyleSheet("QMenu{color:#000000}\nQWidget{color:"+str(spider.getpjfs(self.settings["appearance"]["pic"]))+"}")
+                except:
+                    self.pic=False
+            elif self.settings["appearance"]["mode"]=="no":
+                self.windowEffect.setShadowEffect(int(self.winId()))
+        def paintEvent(self,a0:QPaintEvent) -> None:
+            if self.pic:
+                painter = QPainter(self)
+                pixmap = QPixmap(self.settings["appearance"]["pic"])
+                painter.drawPixmap(self.rect(), pixmap)
+        def mouseMoveEvent(self,event):
+            self.windowEffect.moveWindow(self.winId())
     class ClockWindow(NoIconFramelessWindow,Ui_Form):
         def __init__(self):
             super().__init__()
@@ -45,6 +87,13 @@ try:
             self.effects()
             self.dates()
             self.countdown()
+            if self.settings["appearance"]["showMode"]=="Window":
+                self.show()
+            if self.settings["appearance"]["showMode"]=="Tool":
+                self.tool=Tool()
+                self.tool.show()
+                self.tool.close()
+                self.tool.show()
         def countdown(self):
             if self.settings["countdown"]["isCountdown"] and self.settings["countdown"]["countdownDay"]>=time.strftime("%Y-%m-%d"):
                 date1 = datetime.datetime.strptime(self.settings["countdown"]["countdownDay"], "%Y-%m-%d").date()
@@ -99,10 +148,6 @@ try:
             # else:
             #     self.setWindowFlags(Qt.SplashScreen)
             # # self.setWindowFlags(Qt.SplashScreen)
-            if self.settings["appearance"]["showMode"]=="Window":
-                pass
-            if self.settings["appearance"]["showMode"]=="Tool":
-                pass
             self.settinged.setWindowFlags(Qt.WindowCloseButtonHint)
         def setting(self):
             self.settinged.show()
@@ -177,7 +222,7 @@ try:
                 self.pic=True
                 self.windowEffect.setShadowEffect(int(self.winId()))
                 try:
-                    self.setStyleSheet("QMenu::item{color:#000000} QWidget{color:"+str(spider.getpjfs(self.settings["appearance"]["pic"]))+"}")
+                    self.setStyleSheet("QMenu{color:#000000}\nQWidget{color:"+str(spider.getpjfs(self.settings["appearance"]["pic"]))+"}")
                 except:
                     self.pic=False
             elif self.settings["appearance"]["mode"]=="no":
@@ -215,7 +260,7 @@ try:
         def __init__(self):
             super().__init__()
         def run(self):
-            time.sleep(0.1)
+            time.sleep(0.2)
             while True:
                 window.date.setText(time.strftime('%Y-%m-%d %a').replace("Mon","周一").replace("Tue", "周二").replace("Wed","周三").replace("Thu", "周四").replace("Fri", "周五").replace("Sat", "周六").replace("Sun","周日"))
                 a=datetime.date.today()
@@ -232,7 +277,6 @@ try:
         global app,window 
         app = QApplication(sys.argv)
         window=ClockWindow()
-        window.show()
         window.activateWindow()
         sys.exit(app.exec_())
     if __name__=="__main__":

@@ -1,7 +1,7 @@
 {
     "appearance":{
         "mode":"effect",
-        "pic":"./",
+        "pic":"F:/\u522b\u70b9\uff01\uff01\uff01/no/no/Windows8Yu&Ai_PCDIY.jpg",
         "showMode":"Tool"
     },
     "countdown":{
@@ -10,7 +10,7 @@
         "isCountdown":false
     },
     "network":{
-        "doNotTraceback":false
+        "doNotTraceback":true
     },
     "other":{
         "startupOnLogin":false

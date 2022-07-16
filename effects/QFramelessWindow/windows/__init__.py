@@ -20,7 +20,7 @@ class NoIconWindowsFramelessWindow(QSplashScreen):
 
     BORDER_WIDTH = 5
     def mousePressEvent(self,event):
-        pass
+        self.activateWindow()
     def mouseMoveEvent(self,event):
         self.windowEffect.moveWindow(self.winId())
     def __init__(self, parent=None):

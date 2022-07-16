@@ -82,8 +82,10 @@ class Settinger(FramelessWindow,Ui_setting):
     def f(self):
         feedback.start("")
     def setup(self):
+        self.w1=self.width()
         # self.setWindowFlags(Qt.FramelessWindowHint |
         #         Qt.WindowMinMaxButtonsHint)
+        self.qw=self.menu.width()
         self.pa=QPainter()
         self.l=logShower()
         self.setWindowFlags(Qt.FramelessWindowHint)
@@ -233,6 +235,18 @@ class Settinger(FramelessWindow,Ui_setting):
             self.setting["appearance"]["mode"]="pic"
         elif self.radioButton_3.isChecked():
             self.setting["appearance"]["mode"]="no"
+    def resizeEvent(self, event):
+        if self.menu.width()<self.qw:
+            self.menu.setGeometry(self.menu.x(),self.menu.y(),40,self.menu.height())
+            for i in range(4):
+                self.menu.item(i).setText("")
+            self.w1=self.width()
+        elif self.width()>=self.w1:
+            self.menu.item(0).setText("外观")
+            self.menu.item(1).setText("倒计时")
+            self.menu.item(2).setText("其它")
+            self.menu.item(3).setText("关于")
+            self.menu.setGeometry(self.menu.x(),self.menu.y(),self.qw,self.menu.height())
     def setCountdown(self,state):
         self.setting["countdown"]["isCountdown"]=state
     def setCountdownDate(self):
