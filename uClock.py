@@ -154,7 +154,7 @@ try:
         #置顶bug终于TM修复了！！！！！！！！！！！！！！！
         def pin(self):
             if not (self.windowFlags() | Qt.WindowStaysOnTopHint) == self.windowFlags():
-                self.setWindowFlags(Qt.WindowStaysOnTopHint|Qt.SplashScreen)
+                self.setWindowFlags(Qt.WindowStaysOnTopHint|self.windowFlags())
                 self.show()
             else:
                 self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
