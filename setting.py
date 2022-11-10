@@ -35,8 +35,9 @@ class Settinger(FramelessWindow,Ui_setting):
         self.setWindowIcon(QIcon("./effects/pics/uclock.png"))
         self.setup()
     def closeEvent(self,event):
+        event.ignore()
         with open("settings.json","w+",encoding="utf-8") as f:
-            json.dump(self.setting,f,sort_keys=True, indent=4, separators=(',', ':'))
+            json.dump(self.setting,f)
         self.hide()
     def mouseMoveEvent(self, event):
         if event.buttons() == Qt.LeftButton and event.y()<=30:

@@ -260,7 +260,10 @@ try:
         def __init__(self):
             super().__init__()
         def run(self):
-            time.sleep(0.2)
+            global window
+            window=None
+            while not window:
+                pass
             while True:
                 window.date.setText(time.strftime('%Y-%m-%d %a').replace("Mon","周一").replace("Tue", "周二").replace("Wed","周三").replace("Thu", "周四").replace("Fri", "周五").replace("Sat", "周六").replace("Sun","周日"))
                 a=datetime.date.today()
@@ -283,8 +286,10 @@ try:
         main()
 except:
     if not "app" in vars():
+        print(traceback.format_exc())
         app = QApplication(sys.argv)
         error.start(traceback.format_exc())
         sys.exit(app.exec_())
     else:
+        print(traceback.format_exc())
         error.start(traceback.format_exc())
