@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style id="style">
+        body {
+            font-family:"Microsoft Yahei";
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+
+        }
+        ul{
+            list-style: none;
+        }
+        #circle{
+            width: 200px;
+            height: 200px;
+            border-radius: 100px;
+            border: 1px solid black;
+        }
+        #kedu li{
+            width: 1px;
+            height: 6px;
+            border-radius: 10px;
+            background-color: black;
+            transform-origin: center 101px;/*设置li标签的旋转中心和旋转半径。*/
+            position: absolute;
+            left: 109px;
+            top: 9px;
+        }
+        #kedu li:nth-of-type(5n+1){
+            height: 12px;
+            width: 2px;
+        }
+
+        /* 秒针的绘制，用transform把div绘制成线条，后面的指针都是在这样。 */
+        #second{
+            width: 2px;
+            height: 80px;
+            background-color: red;
+            transform: scaleY(1);
+            position: absolute;
+            left: 108px;
+            top: 30px;
+            transform-origin: bottom; /*设置它们的旋转中心，transform-origin: bottom；意思是以它们的底部为中心旋转。*/
+        }
+        #min{
+            width: 2px;
+            height: 65px;
+            background-color: gray;
+            transform: scaleY(1);
+            position: absolute;
+            left: 108px;
+            top: 45px;
+            transform-origin: bottom;
+        }
+        #hour{
+            width: 2px;
+            height: 50px;
+            background-color: black;
+            transform: scaleY(1);
+            position: absolute;
+            left: 108px;
+            top: 60px;
+            transform-origin: bottom;
+        }
+        #p12{
+            position: absolute;
+            left: 100px;
+            top: 0px;
+        }
+        #p3{
+            position: absolute;
+            left: 190px;
+            top: 84px;
+        }
+        #p6{
+            position: absolute;
+            left: 105px;
+            top: 165px;
+        }
+        #p9{
+            position: absolute;
+            left: 20px;
+            top: 82px;
+        }
+    </style>
+    <div id="circle">
+        <ul id="kedu"></ul>
+    </div>
+    <div id="second"></div><!--绘制秒针-->
+    <div id="min"></div><!--绘制分针-->
+    <div id="hour"></div><!--绘制时针-->
+    <p id="p12">12</p>
+    <p id="p3">3</p>
+    <p id="p6">6</p>
+    <p id="p9">9</p>
+    <script>
+        //绘制时钟的刻度 动态创建60个li标签。
+        function li(){
+            let ul=document.getElementById("kedu");//先获取到ul，因为要在ul下创建li。
+            let css;//用来存li的style样式中的CSS设置。
+            for(let i=0;i<60;i++){
+                css+=`#kedu li:nth-of-type(${i+1}){transform:rotate(${i*6}deg)}`//循环设置ul下的第i+1个li的旋转角度，要在css中设置了li的旋转中心
+                ul.innerHTML+=`<li></li>`;//这里要用+=，如果直接用=，只会创建一个li，因为会覆盖前面的li，为了不出现覆盖就用+=。
+            }
+            let sty=document.getElementById("style")//这里获取到style标签。
+            sty.innerHTML+=css //把ul下的li标签的css样式写入到style里。
+        }
+        li();//这里结束就把刻度画好了。
+
+        function time(){
+            let s=document.getElementById("second");//获取到时分秒的三个指针，后面用来动态让它们旋转起来。
+            let m=document.getElementById("min");
+            let h=document.getElementById("hour");
+
+            //获取时间。
+            let date=new Date();
+            let snum=date.getSeconds();//获取现在是多少秒。
+            let mnum=date.getMinutes()+snum/60;//获取现在是多少分，不能忘记加上 秒数/60。
+            let hnum=date.getHours()+mnum/60; //获取现在是多少时，不能忘记加上 分钟数/60。
+            
+            s.style.transform=`rotate(${snum*6}deg)`;//设置的trasnform就可以让它们旋转起来，秒针时一秒旋转6度。
+            m.style.transform=`rotate(${mnum*6}deg)`//分针也是一分钟旋转6度。
+            h.style.transform=`rotate(${hnum*30}deg)`//这里时小时，一小时旋转30度，所以*30.
+        }
+        setInterval(time,100)//用计时器每100ms运行这个time函数。
+    </script>
+</body>
+</html>

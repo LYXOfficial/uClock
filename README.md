@@ -1,3 +1,5 @@
+因为fz缤纷节已经复活qwq
+
 # uClock
 
 <center><img src="effects\pics\uclock.png"></center>
