@@ -281,12 +281,13 @@ QDateEdit::down-arrow {
     background-color: rgb(240, 240, 240)
 }
 QGroupBox{
-    background-color: rgb(255, 255, 255,0.9);
+    background-color: rgba(255, 255, 255,0.9);
     border-radius: 5px;
     border-width: 0.5px;
     border-color: #e2e2e2;
     border-style: solid;
     height: 60px;
+        
 }
 QRadioButton {
     spacing: 10px;

@@ -1,10 +1,11 @@
-import requests,time,json,random,geoip2.database,datetime
-from PIL import Image,ImageDraw
+import requests,time,json,random,datetime
+# from PIL import Image,ImageDraw
 import socket
 def getHostIp():
     ip=requests.get("https://api.ipify.org/").text
-
     return ip
+def test():
+    requests.get("https://baidu.com")
 def holiday():
     try:
         a=json.loads(requests.get("https://timor.tech/api/holiday/year").text)
@@ -201,31 +202,38 @@ def famous():
 
 76、如果你浪费了自己的年龄，那是挺可悲的。因为你的青春只能持续
 一点儿时间——很短的一点儿时间。——王尔德"""
-    return famouses.split("\n\n")[random.randint(0,75)][3:]
-def test():
-    requests.get("https://www.baidu.com")
-def getpjfs(link):
-    img = Image.open(link)
-    w,h=img.size 
-    r,g,b=0,0,0
-    img = img.convert('RGB')
-    for x in range(w):
-        for y in range(h):
-            r1,g1,b1=img.getpixel((x,y))
-            r+=r1
-            g+=g1
-            b+=b1
-    if (r//(w*h)+g//(w*h)+b//(w*h))/3>=200:
-        return "#000000"
+    try:
+        requests.get("https://baidu.com")
+    except:
+        return famouses.split("\n\n")[random.randint(0,75)][3:]
+    req=requests.get("https://v1.hitokoto.cn/?c=a&c=b&c=d&c=f&c=i&c=k")
+    hik=json.loads(req.text)
+    if hik["from"]==None:
+        return hik["hitokoto"]+"\n———"+hik["from_who"]
+    elif hik["from_who"]==None:
+        return hik["hitokoto"]+"\n———「"+hik["from"]+"」"
     else:
-        return "#FFFFFF"
-    
+        return hik["hitokoto"]+"\n———"+hik["from_who"]+"「"+hik["from"]+"」"
+def getpjfs(link):
+    # img = Image.open(link)
+    # w,h=img.size 
+    # r,g,b=0,0,0
+    # img = img.convert('RGB')
+    # for x in range(w):
+    #     for y in range(h):
+    #         r1,g1,b1=img.getpixel((x,y))
+    #         r+=r1
+    #         g+=g1
+    #         b+=b1
+    # if (r//(w*h)+g//(w*h)+b//(w*h))/3>=200:
+    #     return "#000000"
+    # else:
+    #     return "#FFFFFF"
+    return "#000000"
 def weather():
     try:
-        reader = geoip2.database.Reader('./GeoLite2-City.mmdb')
         ip=getHostIp()
-        response = reader.city(ip)
-        city=response.city.names["zh-CN"]
+        city=requests.get("http://ip-api.com/json/%s?lang=zh-CN"%ip).json()["regionName"]
         url=f"https://api.seniverse.com/v3/weather/daily.json?key=S7fyLm4jfkPpS7eDD&location={city}&language=zh-Hans&unit=c&start=0&days=5"
         content =requests.get(url)
         content.encoding="utf-8"
@@ -237,8 +245,9 @@ def weather():
         else:
             wea=res["text_night"]
         du=res["low"]+"~"+res["high"]+"℃"
-        return wea,du
+        return city+" "+wea,du
     except:
-        return "未知","0~0℃"
+        return "未知城市 未知","0~0℃"
 if __name__=="__main__":
-    print(getpjfs("image/README/1655690951385.png"))
+    # weather()
+    print(famous())

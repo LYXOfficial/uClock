@@ -12,7 +12,7 @@
   </property>
   <property name="font">
    <font>
-    <family>萍方粗</family>
+    <family>黑体</family>
    </font>
   </property>
   <property name="windowTitle">
@@ -60,8 +60,10 @@
     <widget class="QLabel" name="time">
      <property name="font">
       <font>
-       <family>萍方粗</family>
+       <family>微软雅黑</family>
        <pointsize>24</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">

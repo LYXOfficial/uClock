@@ -42,7 +42,7 @@ class WindowEffect:
         self.winCompAttrData.SizeOfData = sizeof(self.accentPolicy)
         self.winCompAttrData.Data = pointer(self.accentPolicy)
 
-    def setAcrylicEffect(self, hWnd, gradientColor="F2F2F299", enableShadow=True, animationId=0):
+    def setAcrylicEffect(self, hWnd, gradientColor="F2F2F299", enableShadow=1, animationId=0):
         """ Add the acrylic effect to the window
 
         Parameters

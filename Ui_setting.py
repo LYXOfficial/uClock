@@ -382,7 +382,7 @@ class Ui_setting(object):
         self.label_10.setFont(font)
         self.label_10.setObjectName("label_10")
         self.gridLayout.addWidget(self.label_10, 3, 0, 1, 1)
-
+    
         self.retranslateUi(setting)
         self.stackedWidget.setCurrentIndex(0)
         self.menu.setCurrentRow(0)

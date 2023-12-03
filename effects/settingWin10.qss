@@ -99,7 +99,9 @@ QSlider::add-page:horizontal {
     height: 4px;
     border-radius: 2px;
 }
-
+QCheckBox{
+    font-size: 14px;
+}
 /* 按钮 */
 QPushButton {
     font-size: 14px;
